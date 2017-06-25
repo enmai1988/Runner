@@ -16,13 +16,12 @@ app.use(passport.session());
 
 app.use('/login', express.static(path.join(__dirname, '/../client/public/login')));
 
-app.get('/login/login/facebook',
+app.get('/login/facebook',
   passport.authenticate('facebook'));
 
 app.get('/login/facebook/return', 
   passport.authenticate('facebook', { failureRedirect: '/login' }),
   function(req, res) {
-    console.log('Authenticated');
     res.redirect('/');
   });
 
