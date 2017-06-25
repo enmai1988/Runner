@@ -1,0 +1,7 @@
+const LogOut = () => (
+  <div>
+    <h2>LogOut</h2>
+  </div>
+);
+
+export default LogOut;
