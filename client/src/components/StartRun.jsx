@@ -1,3 +1,5 @@
+import React from 'react';
+
 const StartRun = () => (
   <div>
     <h2>StartRun</h2>

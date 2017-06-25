@@ -1,3 +1,5 @@
+import React from 'react';
+
 const LogOut = () => (
   <div>
     <h2>LogOut</h2>
