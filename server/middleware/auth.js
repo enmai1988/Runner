@@ -5,13 +5,13 @@ var Strategy = require('passport-facebook').Strategy;
 var config = require('../config/config.js');
 
 passport.use(new Strategy({
-    clientID: config.FB_ID,
-    clientSecret: config.FB_SECRET,
-    callbackURL: '/login/facebook/return'
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    return cb(null, profile);
-  }));
+  clientID: config.FB_ID,
+  clientSecret: config.FB_SECRET,
+  callbackURL: '/login/facebook/return'
+},
+function(accessToken, refreshToken, profile, cb) {
+  return cb(null, profile);
+}));
 
 passport.serializeUser(function(user, cb) {
   cb(null, user);
