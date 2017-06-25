@@ -8,9 +8,8 @@ var app = express();
 
 app.use(express.static(path.join(__dirname, '/../client/public')));
 
-// app.get('/login', (req, res) => {
-//   res.send('HI');
-// });
+app.get('/login', (req, res) => {
+});
 
 
 module.exports = app;
