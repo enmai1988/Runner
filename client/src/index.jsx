@@ -26,20 +26,23 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/startRun">Start Run</Link></li>
-            <li><Link to="/myRuns">My Runs</Link></li>
-            <li><Link to="/profile">Profile</Link></li>
-            <li><Link to="/logOut">Log Out</Link></li>
-          </ul>
+          <div className="dropdown">
+            <button className="dropbtn">Menu</button>
+            <div className="dropdown-content">
+              <Link to="/">Home</Link>
+              <Link to="/startRun">Start Run</Link>
+              <Link to="/myRuns">My Runs</Link>
+              <Link to="/profile">Profile</Link>
+              <Link to="/logOut">Log Out</Link>
+            </div>
+          </div>
 
-        <hr/>
-        <Route exact path="/" component={Home}/>
-        <Route path="/startRun" component={StartRun}/>
-        <Route path="/myRuns" component={MyRuns}/>
-        <Route path="/profile" component={Profile}/>
-        <Route path="/logOut" component={LogOut}/>
+          <hr/>
+          <Route exact path="/" component={Home}/>
+          <Route path="/startRun" component={StartRun}/>
+          <Route path="/myRuns" component={MyRuns}/>
+          <Route path="/profile" component={Profile}/>
+          <Route path="/logOut" component={LogOut}/>
         </div>
       </Router>
     )
@@ -48,3 +51,13 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+
+        
+          // <ul>
+          //   <li><Link to="/">Home</Link></li>
+          //   <li><Link to="/startRun">Start Run</Link></li>
+          //   <li><Link to="/myRuns">My Runs</Link></li>
+          //   <li><Link to="/profile">Profile</Link></li>
+          //   <li><Link to="/logOut">Log Out</Link></li>
+          // </ul>
