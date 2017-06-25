@@ -25,6 +25,7 @@ app.get('/login/facebook/return',
     res.redirect('/');
   });
 
+
 app.use('/',
   require('connect-ensure-login').ensureLoggedIn(),
   express.static(path.join(__dirname, '/../client/public/index')));
