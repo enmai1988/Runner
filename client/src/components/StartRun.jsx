@@ -12,7 +12,7 @@ const StartRun = (props) => (
       <input type="text"/>
       <label>Description</label>
       <input type="text"/>
-      <button type="submit">Start Run</button>
+      <button className="btn" type="submit">Start Run</button>
     </form>
   </div>
 );
