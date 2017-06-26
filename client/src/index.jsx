@@ -19,13 +19,32 @@ class App extends React.Component {
 
     this.state = {}
     this.acceptRun = this.acceptRun.bind(this);
+    this.acceptRun = this.acceptRun.bind(this);
   }
 
-  acceptRun (e) {
-    console.log(e.target.value);
+  acceptRun(e) {
+    var runId = 7;
+    var runnerId = 2;
+    axios.post('/runs', {runId: runId, runnerId: runnerId})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
-  //render
+  startRun(e) {
+    var form = e.target.value;
+    console.log(form);
+    // var data = {
+    //   title: ,
+    //   description: ,
+    //   location: ,
+    //   payout: ,
+    // };
+  }
+
   render() {
     return (
       <Router>
@@ -47,11 +66,11 @@ class App extends React.Component {
           </div>
 
           <hr/>
-          <Route exact path="/" component={() => <Home click={this.acceptRun} />}/>
-          <Route path="/startRun" component={StartRun}/>
-          <Route path="/myRuns" component={MyRuns}/>
-          <Route path="/profile" component={Profile}/>
-          <Route path="/logOut" component={LogOut}/>
+          <Route exact path="/" component={() => <Home acceptRun={this.acceptRun} />}/>
+          <Route path="/startRun" component={() => <StartRun/>}/>
+          <Route path="/myRuns" component={() => <MyRuns/>}/>
+          <Route path="/profile" component={() => <Profile/>}/>
+          <Route path="/logOut" component={() => <LogOut/>}/>
         </div>
       </Router>
     )

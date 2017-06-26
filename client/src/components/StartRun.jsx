@@ -1,8 +1,8 @@
 import React from 'react';
 
-const StartRun = () => (
+const StartRun = (props) => (
   <div>
-    <form>
+    <form method="POST" action="/startRun">
       <h2>StartRun</h2>
       <label>Title:</label>
       <input type="text"/>
@@ -12,9 +12,8 @@ const StartRun = () => (
       <input type="text"/>
       <label>Description</label>
       <input type="text"/>
-      <button>Start Run</button>
+      <button type="submit">Start Run</button>
     </form>
-
   </div>
 );
 
