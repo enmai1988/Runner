@@ -15,9 +15,9 @@ import LogOut from './components/LogOut.jsx';
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = {}
+    this.state = {};
     this.acceptRun = this.acceptRun.bind(this);
     this.acceptRun = this.acceptRun.bind(this);
   }
@@ -61,7 +61,7 @@ class App extends React.Component {
               </div>
             </div>
             <div className="logo">
-              <img src="logo/RunnerLogo.png" width="167" height="50"/>
+              <img src="../logo/RunnerLogo.png" width="200" height="60"/>
             </div>
           </div>
 
@@ -73,7 +73,7 @@ class App extends React.Component {
           <Route path="/logOut" component={() => <LogOut/>}/>
         </div>
       </Router>
-    )
+    );
   }
 
 }

@@ -14,7 +14,7 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveU
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+app.use(express.static(path.join(__dirname, '/../client/public/assets')));
 
 
 app.use('/login', express.static(path.join(__dirname, '/../client/public/login')));
