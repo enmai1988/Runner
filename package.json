@@ -11,7 +11,8 @@
     "start": "nodemon server/index.js",
     "react-dev": "webpack -d --progress --color --watch",
     "lint": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "webpack -d; node server/index.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
