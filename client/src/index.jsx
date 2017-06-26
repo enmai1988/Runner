@@ -48,7 +48,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="mainTopContainer">
           <div className="topBarContainer">
             <div className="dropdown">
               <button className="dropbtn">Menu</button>
@@ -61,7 +61,7 @@ class App extends React.Component {
               </div>
             </div>
             <div className="logo">
-              <img src="logo/RunnerLogo.png" width="200" height="60"/>
+              <img src="logo/RunnerLogo.png" width="167" height="50"/>
             </div>
           </div>
 
