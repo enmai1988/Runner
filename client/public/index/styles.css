@@ -10,6 +10,7 @@
 .dropdown {
     position: relative;
     display: inline-block;
+    float: left;
 }
 
 .dropdown-content {
@@ -35,4 +36,14 @@
 
 .dropdown:hover .dropbtn {
     background-color: #1E90FF;
+}
+
+.logo {
+    width: 30%;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+.topBarContainer {
+    text-align: center;
 }

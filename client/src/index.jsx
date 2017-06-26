@@ -18,7 +18,11 @@ class App extends React.Component {
     super(props)
 
     this.state = {}
+    this.acceptRun = this.acceptRun.bind(this);
+  }
 
+  acceptRun (e) {
+    console.log(e.target.value);
   }
 
   //render
@@ -26,19 +30,24 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <div className="dropdown">
-            <button className="dropbtn">Menu</button>
-            <div className="dropdown-content">
-              <Link to="/">Home</Link>
-              <Link to="/startRun">Start Run</Link>
-              <Link to="/myRuns">My Runs</Link>
-              <Link to="/profile">Profile</Link>
-              <Link to="/logOut">Log Out</Link>
+          <div className="topBarContainer">
+            <div className="dropdown">
+              <button className="dropbtn">Menu</button>
+              <div className="dropdown-content">
+                <Link to="/">Home</Link>
+                <Link to="/startRun">Start Run</Link>
+                <Link to="/myRuns">My Runs</Link>
+                <Link to="/profile">Profile</Link>
+                <Link to="/logOut">Log Out</Link>
+              </div>
+            </div>
+            <div className="logo">
+              <img src="logo/RunnerLogo.png" width="200" height="60"/>
             </div>
           </div>
 
           <hr/>
-          <Route exact path="/" component={Home}/>
+          <Route exact path="/" component={() => <Home click={this.acceptRun} />}/>
           <Route path="/startRun" component={StartRun}/>
           <Route path="/myRuns" component={MyRuns}/>
           <Route path="/profile" component={Profile}/>
