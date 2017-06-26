@@ -48,7 +48,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <div className="mainTopContainer">
+        <div className="mainContainer">
           <div className="topBarContainer">
             <div className="dropdown">
               <button className="dropbtn">Menu</button>
@@ -64,13 +64,14 @@ class App extends React.Component {
               <img src="../logo/RunnerLogo.png" width="200" height="60"/>
             </div>
           </div>
-
-          <hr/>
-          <Route exact path="/" component={() => <Home acceptRun={this.acceptRun} />}/>
-          <Route path="/startRun" component={() => <StartRun/>}/>
-          <Route path="/myRuns" component={() => <MyRuns/>}/>
-          <Route path="/profile" component={() => <Profile/>}/>
-          <Route path="/logOut" component={() => <LogOut/>}/>
+          <div className="mainBodyContainer">
+            <hr/>
+            <Route exact path="/" component={() => <Home acceptRun={this.acceptRun} />}/>
+            <Route path="/startRun" component={() => <StartRun/>}/>
+            <Route path="/myRuns" component={() => <MyRuns/>}/>
+            <Route path="/profile" component={() => <Profile/>}/>
+            <Route path="/logOut" component={() => <LogOut/>}/>
+          </div>
         </div>
       </Router>
     );
@@ -79,13 +80,3 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
-
-
-        
-          // <ul>
-          //   <li><Link to="/">Home</Link></li>
-          //   <li><Link to="/startRun">Start Run</Link></li>
-          //   <li><Link to="/myRuns">My Runs</Link></li>
-          //   <li><Link to="/profile">Profile</Link></li>
-          //   <li><Link to="/logOut">Log Out</Link></li>
-          // </ul>
