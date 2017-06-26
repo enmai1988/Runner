@@ -25,6 +25,11 @@ app.get('/login/facebook/return',
     res.redirect('/');
   });
 
+app.post('/logout', (req, res) => {
+  req.logout();
+  req.session.destroy();
+  res.redirect('/');
+});
 
 app.use('/',
   require('connect-ensure-login').ensureLoggedIn(),
