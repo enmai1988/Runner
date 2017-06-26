@@ -5,8 +5,8 @@ var Strategy = require('passport-facebook').Strategy;
 var config = require('../config/config.js');
 
 passport.use(new Strategy({
-  clientID: config.FB_ID,
-  clientSecret: config.FB_SECRET,
+  clientID: process.env.RUNNER_ID || config.FB_ID,
+  clientSecret: process.env.RUNNER_SECRET || config.FB_SECRET,
   callbackURL: '/login/facebook/return'
 },
 function(accessToken, refreshToken, profile, cb) {
