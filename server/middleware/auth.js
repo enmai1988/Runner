@@ -2,7 +2,7 @@ var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
 
 // NEED TO GET APP KEY FOR THIS FILE
-var config = require('../config/config.js');
+// var config = require('../config/config.js');
 
 passport.use(new Strategy({
   clientID: process.env.RUNNER_ID || config.FB_ID,
