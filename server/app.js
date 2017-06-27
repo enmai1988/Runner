@@ -16,7 +16,8 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, '/../client/public/assets')));
 
-
+// Authentication part
+//////////////////////////////////////////////////////////////////////////////
 app.use('/login', express.static(path.join(__dirname, '/../client/public/login')));
 
 app.get('/login/facebook',
@@ -37,6 +38,14 @@ app.post('/logout', (req, res) => {
 app.use('/',
   require('connect-ensure-login').ensureLoggedIn(),
   express.static(path.join(__dirname, '/../client/public/index')));
+//////////////////////////////////////////////////////////////////////////////
 
+
+// Database routes
+//////////////////////////////////////////////////////////////////////////////
+// functions that post and get from database should go here
+
+
+//////////////////////////////////////////////////////////////////////////////
 
 module.exports = app;
