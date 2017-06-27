@@ -18,10 +18,7 @@ if grep -q "error" out.out
 then
   if [ ${branch_name} = 'master' ]
   then 
-    echo "Don't work in master branch!"
-    echo -n "Name of new feature branch: "
-    read NEW_BRANCH
-    git checkout -b ${NEW_BRANCH}
+    echo "Don't work in master branch! Change branch and try again"
   else 
     echo "Commit changes and try again"
   fi
