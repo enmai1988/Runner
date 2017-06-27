@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Home = (props) => (
-  <div className="homeContainer">
+  <div className="reactComponentContainer">
     <h2>Home</h2>
     <div>
       <ul className="homeRunContainer">

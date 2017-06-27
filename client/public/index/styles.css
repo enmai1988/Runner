@@ -28,7 +28,9 @@
     display: block;
 }
 
-.dropdown-content a:hover {background-color: #66b3ff}
+.dropdown-content a:hover {
+    background-color: #66b3ff
+}
 
 .dropdown:hover .dropdown-content {
     display: block;
@@ -37,6 +39,7 @@
 .dropdown:hover .dropbtn {
     background-color: #1E90FF;
 }
+
 html, body {
     height: 100%;
     margin: 0;
@@ -48,8 +51,6 @@ html, body {
     flex-direction: column;
 }
 
-
-
 #app > div {
     flex: 1;
 }
@@ -60,6 +61,7 @@ html, body {
 }
 
 .mainBodyContainer {
+    flex: 1;
     background: linear-gradient(141deg, rgb(15, 184, 173) 0%, rgb(31, 200, 219) 51%, rgb(44, 181, 232) 75%);
 }
 
@@ -107,6 +109,6 @@ hr {
     display: inline-block;
 }
 
-.homeContainer {
+.reactComponentContainer {
     padding: 20px;
 }

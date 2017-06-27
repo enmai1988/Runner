@@ -83,9 +83,9 @@ class App extends React.Component {
             <div className="logo">
               <img src="../logo/RunnerLogo.png" width="200" height="60"/>
             </div>
+            <hr/>
           </div>
           <div className="mainBodyContainer">
-            <hr/>
             <Route exact path="/" component={() => <Home acceptRun={this.acceptRun} />}/>
             <Route path="/startRun" component={() => <StartRun/>}/>
             <Route path="/myRuns" component={() => <MyRuns/>}/>
