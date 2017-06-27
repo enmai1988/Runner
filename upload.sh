@@ -12,22 +12,9 @@ then
   echo "Don't upload from master branch! Change branch and try again."
   exit 1
 fi
-
 echo
-echo "Git says:"
-git pull --rebase upstream master &> out.out
-
-cat out.out
-
+git add .
 echo
-if grep -q "error" out.out
-then
-    echo 'Commit changes first!'
-    \rm out.out
-    exit 1
-fi
-
 git rebase --continue
-
-\rm out.out
 echo
+git push origin ${branch_name}
