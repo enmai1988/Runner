@@ -27,7 +27,7 @@ then
     exit 1
 fi
 
-
+git rebase --continue
 
 \rm out.out
 echo
