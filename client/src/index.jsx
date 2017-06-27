@@ -6,6 +6,7 @@ import {
   Link
 } from 'react-router-dom';
 import axios from 'axios';
+import browserHistory from 'react-router';
 //import components
 import Home from './components/Home.jsx';
 import StartRun from './components/StartRun.jsx';
@@ -47,7 +48,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
+      <Router history={browserHistory}>
         <div className="mainContainer">
           <div className="topBarContainer">
             <div className="dropdown">
