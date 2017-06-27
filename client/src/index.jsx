@@ -18,9 +18,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      user: {}
+    };
     this.acceptRun = this.acceptRun.bind(this);
     this.acceptRun = this.acceptRun.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUserInfo();
   }
 
   acceptRun(e) {
@@ -33,6 +39,19 @@ class App extends React.Component {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  getUserInfo() {
+    axios.get('/userinfo')
+    .then(res => {
+      console.log('User info: ', res.data);
+      this.setState({
+        user: res.data
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 
   startRun(e) {
@@ -70,7 +89,7 @@ class App extends React.Component {
             <Route exact path="/" component={() => <Home acceptRun={this.acceptRun} />}/>
             <Route path="/startRun" component={() => <StartRun/>}/>
             <Route path="/myRuns" component={() => <MyRuns/>}/>
-            <Route path="/profile" component={() => <Profile/>}/>
+            <Route path="/profile" component={() => <Profile user={this.state.user}/>}/>
             <Route path="/logOut" component={() => <LogOut/>}/>
           </div>
         </div>
