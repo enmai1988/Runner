@@ -8,11 +8,14 @@ var app = express();
 
 app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 app.use(express.static(path.join(__dirname, '/../client/public/assets')));
 
@@ -35,9 +38,13 @@ app.post('/logout', (req, res) => {
   res.redirect('/');
 });
 
-app.use('/',
+app.use(
   require('connect-ensure-login').ensureLoggedIn(),
   express.static(path.join(__dirname, '/../client/public/index')));
+
+app.get(
+  require('connect-ensure-login').ensureLoggedIn(),
+  (req, res) => res.sendFile(path.join(__dirname, '/../client/public/index/index.html')));
 //////////////////////////////////////////////////////////////////////////////
 
 
@@ -46,10 +53,6 @@ app.use('/',
 // functions that post and get from database should go here
 app.post('/startRun', (req, res) => {
   console.log(req);
-  res.redirect('/');
-});
-
-app.get('/startRun', (req, res) => {
   res.redirect('/');
 });
 
