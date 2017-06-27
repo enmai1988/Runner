@@ -44,7 +44,14 @@ app.use('/',
 // Database routes
 //////////////////////////////////////////////////////////////////////////////
 // functions that post and get from database should go here
+app.post('/startRun', (req, res) => {
+  console.log(req);
+  res.redirect('/');
+});
 
+app.get('/startRun', (req, res) => {
+  res.redirect('/');
+});
 
 //////////////////////////////////////////////////////////////////////////////
 
