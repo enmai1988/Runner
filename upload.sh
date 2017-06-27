@@ -18,3 +18,6 @@ echo
 git rebase --continue
 echo
 git push origin ${branch_name}
+echo
+username=$(git config --global user.name)
+open https://www.github.com/${username}/Runner.git
