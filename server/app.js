@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, '/../client/public/assets')));
 
 // Authentication part
 //////////////////////////////////////////////////////////////////////////////
-app.use('/login', express.static(path.join(__dirname, '/../client/public/login')));
+app.use('/login', util.Auth.VerifyLogout, express.static(path.join(__dirname, '/../client/public/login')));
 
 app.get('/login/facebook',
   passport.authenticate('facebook'));
@@ -52,7 +52,7 @@ app.get(
 //////////////////////////////////////////////////////////////////////////////
 // functions that post and get from database should go here
 app.post('/startRun', (req, res) => {
-  console.log(req);
+  console.log(req.body);
   res.redirect('/');
 });
 

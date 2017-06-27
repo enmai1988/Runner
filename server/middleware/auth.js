@@ -21,3 +21,21 @@ passport.serializeUser(function(user, cb) {
 passport.deserializeUser(function(obj, cb) {
   cb(null, obj);
 });
+
+module.exports = {
+  VerifyLogin: (req, res, next) => {
+    console.log(req.user);
+    if (req.user) {
+      next();
+    } else {
+      res.redirect('/login');
+    }
+  },
+  VerifyLogout: (req, res, next) => {
+    if (!req.user) {
+      next();
+    } else {
+      res.redirect('/');
+    }
+  }
+};
