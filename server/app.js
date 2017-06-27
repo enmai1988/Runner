@@ -6,13 +6,13 @@ var passport = require('passport');
 
 var app = express();
 
-app.use(require('morgan')('combined'));
-app.use(require('cookie-parser')());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+// app.use(require('morgan')('combined'));
+app.use(require('cookie-parser')());
+app.use(require('express-session')({ secret: 'effective elephants', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 

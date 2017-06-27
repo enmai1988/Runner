@@ -7,10 +7,13 @@ var config = require('../config/config.js');
 passport.use(new Strategy({
   clientID: process.env.RUNNER_ID || config.FB_ID,
   clientSecret: process.env.RUNNER_SECRET || config.FB_SECRET,
+  profileFields: ['id', 'displayName', 'email', 'profileUrl', 'name', 'gender', 'picture.type(large)'],
   callbackURL: '/login/facebook/return'
   //callbackURL: 'https://effective-elephants-runner.herokuapp.com/login/facebook/return'
 },
 function(accessToken, refreshToken, profile, cb) {
+  console.log('PROFILE:');
+  console.log(profile);
   return cb(null, profile);
 }));
 
