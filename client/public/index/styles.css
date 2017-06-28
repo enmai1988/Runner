@@ -98,8 +98,7 @@ html, body {
 
 .homeRunsItem {
     opacity: .85;
-    height: 50px;
-    width: 70%;
+    width: 90%;
     padding: 20px;
     border-color: #4da6ff;
     background-color: #cce6ff;
@@ -115,6 +114,10 @@ html, body {
     align-items: baseline;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.homeRunDesc {
+    flex: 1 1 25%;
 }
 
 .homeRun {
