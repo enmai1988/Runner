@@ -1,7 +1,7 @@
 import React from 'react';
 
 const LogOut = () => (
-  <div>
+  <div  className="reactComponentContainer">
     <h2>LogOut</h2>
     <form method="POST" action="/logout">
       <button className="btn" type="submit">LogOut</button>
