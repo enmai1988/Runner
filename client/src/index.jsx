@@ -29,7 +29,7 @@ class App extends React.Component {
          location: 'San Francisco',
          status: 'available',
          title: 'walk my dog',
-         description: 'I would like you to walk my dog for 30 mins within the next 2 hours.  Key is under my mat' 
+         description: 'I would like you to walk my dog for 30 mins within the next 2 hours.  Key is under my mat',
         },
         {
          id: 2,
@@ -39,7 +39,7 @@ class App extends React.Component {
          location: 'San Francisco',
          status: 'available',
          title: 'get groceries',
-         description: 'I would like you to get my groceries at safeway within the next 3 hours.  I will send you the address and list.' 
+         description: 'I would like you to get my groceries at safeway within the next 3 hours.  I will send you the address and list.',
         },
         {
          id: 3,
@@ -49,7 +49,7 @@ class App extends React.Component {
          location: 'San Francisco',
          status: 'available',
          title: 'get me coffee',
-         description: 'I would like you to get me 3 coffees in the next 30 mins.  I will give you the list and the address.' 
+         description: 'I would like you to get me 3 coffees in the next 30 mins.  I will give you the list and the address.',
         },
         {
          id: 4,
@@ -59,7 +59,7 @@ class App extends React.Component {
          location: 'San Francisco',
          status: 'available',
          title: 'mow my lawn',
-         description: 'I would like you to mow my lawn tomorrow.  it is one acre and I need it done by 2pm.' 
+         description: 'I would like you to mow my lawn tomorrow.  it is one acre and I need it done by 2pm.' ,
         } 
       ]
     };
