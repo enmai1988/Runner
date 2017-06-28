@@ -19,9 +19,9 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      user: {}
+      user: {},
+      runs: {},
     };
-    this.acceptRun = this.acceptRun.bind(this);
     this.acceptRun = this.acceptRun.bind(this);
   }
 
@@ -43,32 +43,21 @@ class App extends React.Component {
 
   getUserInfo() {
     axios.get('/userinfo')
-    .then(res => {
-      console.log('User info: ', res.data);
-      this.setState({
-        user: res.data
+      .then(res => {
+        console.log('User info: ', res.data);
+        this.setState({
+          user: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
       });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-  }
-
-  startRun(e) {
-    var form = e.target.value;
-    console.log(form);
-    // var data = {
-    //   title: ,
-    //   description: ,
-    //   location: ,
-    //   payout: ,
-    // };
   }
 
   render() {
     return (
       <Router history={browserHistory}>
-        <div className="mainContainer">
+        <div className="mainContainer" id="bootstrap-overrides">
           <div className="topBarContainer">
             <div className="dropdown">
               <button className="dropbtn">Menu</button>
@@ -81,12 +70,12 @@ class App extends React.Component {
               </div>
             </div>
             <div className="logo">
-              <img src="../logo/RunnerLogo.png" width="200" height="60"/>
+              <img src="../logo/RunnerLogo.png" width="170"/>
             </div>
             <hr/>
           </div>
           <div className="mainBodyContainer">
-            <Route exact path="/" component={() => <Home acceptRun={this.acceptRun} />}/>
+            <Route exact path="/" component={() => <Home runs={this.state.runs} acceptRun={this.acceptRun} />}/>
             <Route path="/startRun" component={() => <StartRun/>}/>
             <Route path="/myRuns" component={() => <MyRuns/>}/>
             <Route path="/profile" component={() => <Profile user={this.state.user}/>}/>

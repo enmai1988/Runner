@@ -7,7 +7,6 @@ const Profile = ({user}) => (
     <img src={user.profilePic} width="200" height="60"/>
     <h5>Name: </h5>
     <p>{user.displayName}</p>
-    <br></br>
     <h5>Email: </h5>
     <p>{user.email}</p>
     <label>New Email</label>
@@ -28,6 +27,8 @@ const Profile = ({user}) => (
     <input type="text"/>
     <br></br>
     <button className="btn">Change Location</button>
+    <br></br>
+    <br></br>
   </div>
 );
 
