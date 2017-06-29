@@ -7,7 +7,7 @@ const Home = (props) => (
     <div>
       <ul className="homeRunsContainer">
         {props.runs.map((run, index) => {
-          return <HomeRunEntry run={run} acceptRun={props.acceptRun} key={index} />
+          return <HomeRunEntry run={run} acceptRun={props.acceptRun} key={index} />;
         })}
       </ul>
     </div>
