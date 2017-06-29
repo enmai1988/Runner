@@ -60,7 +60,7 @@ class App extends React.Component {
           location: 'San Francisco',
           status: 'available',
           title: 'mow my lawn',
-          description: 'I would like you to mow my lawn tomorrow.  it is one acre and I need it done by 2pm.' ,
+          description: 'I would like you to mow my lawn tomorrow.  it is one acre and I need it done by 2pm.',
         } 
       ]
     };
@@ -98,8 +98,9 @@ class App extends React.Component {
       });
   }
 
-  startRun() {
-    console.log($('#startRunForm').serializeArray());
+  startRun(data) {
+    console.log('the data has arrived', data);
+    //data.userid = this.state.user.fbId;
     // axios.post('/startrun', {})
     //   .then(res => {
     //     console.log(res);
@@ -158,7 +159,7 @@ class App extends React.Component {
           </div>
           <div className="mainBodyContainer">
             <Route exact path="/" component={() => <Home runs={this.state.runs} acceptRun={this.acceptRun} />}/>
-            <Route path="/startRun" component={() => <StartRun />}/>
+            <Route path="/startRun" component={() => <StartRun startRun={this.startRun}/>}/>
             <Route path="/myRuns" component={() => <MyRuns runs={this.state.runs}/>}/>
             <Route path="/profile" component={() => <Profile user={this.state.user}/>}/>
             <Route path="/logOut" component={() => <LogOut/>}/>
