@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 import browserHistory from 'react-router';
+import $ from 'jquery';
 //import components
 import Home from './components/Home.jsx';
 import StartRun from './components/StartRun.jsx';
@@ -63,17 +64,21 @@ class App extends React.Component {
         } 
       ]
     };
+
     this.acceptRun = this.acceptRun.bind(this);
+    this.getUserRuns = this.getUserRuns.bind(this);
+    this.getActiveRuns = this.getActiveRuns.bind(this);
+    this.updateUserData = this.updateUserData.bind(this);
+    this.startRun = this.startRun.bind(this);
   }
 
   componentDidMount() {
-    this.getUserInfo();
+    this.getUserInfoFromFB();
   }
 
-  acceptRun(e) {
-    var runId = 7;
-    var runnerId = 2;
-    axios.post('/runs', {runId: runId, runnerId: runnerId})
+  //POST REQUESTS //////////////////////////////////////////////////////////
+  acceptRun(runId) {
+    axios.post('/acceptrun', {runId: runId, runnerId: this.state.user.fbId})
       .then(res => {
         console.log(res);
       })
@@ -82,7 +87,30 @@ class App extends React.Component {
       });
   }
 
-  getUserInfo() {
+  updateUserData() {
+    axios.post('/userinfo', {//user info
+    })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  startRun() {
+    console.log($('#startRunForm').serializeArray());
+    // axios.post('/startrun', {})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+  }
+
+  //GET REQUESTS ///////////////////////////////////////////////////////////
+  getUserInfoFromFB() {
     axios.get('/userinfo')
       .then(res => {
         console.log('User info: ', res.data);
@@ -95,6 +123,19 @@ class App extends React.Component {
       });
   }
 
+  getUserRuns() {
+
+  }
+
+  getActiveRuns() {
+
+  }
+
+  updateUserInfo(e) {
+
+  }
+
+  //RENDER /////////////////////////////////////////////////////////////////
   render() {
     return (
       <Router history={browserHistory}>
@@ -117,8 +158,8 @@ class App extends React.Component {
           </div>
           <div className="mainBodyContainer">
             <Route exact path="/" component={() => <Home runs={this.state.runs} acceptRun={this.acceptRun} />}/>
-            <Route path="/startRun" component={() => <StartRun/>}/>
-            <Route path="/myRuns" component={() => <MyRuns/>}/>
+            <Route path="/startRun" component={() => <StartRun />}/>
+            <Route path="/myRuns" component={() => <MyRuns runs={this.state.runs}/>}/>
             <Route path="/profile" component={() => <Profile user={this.state.user}/>}/>
             <Route path="/logOut" component={() => <LogOut/>}/>
           </div>
