@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 import browserHistory from 'react-router';
+import $ from 'jquery';
 //import components
 import Home from './components/Home.jsx';
 import StartRun from './components/StartRun.jsx';
@@ -59,21 +60,25 @@ class App extends React.Component {
           location: 'San Francisco',
           status: 'available',
           title: 'mow my lawn',
-          description: 'I would like you to mow my lawn tomorrow.  it is one acre and I need it done by 2pm.' ,
+          description: 'I would like you to mow my lawn tomorrow.  it is one acre and I need it done by 2pm.',
         } 
       ]
     };
+
     this.acceptRun = this.acceptRun.bind(this);
+    this.getUserRuns = this.getUserRuns.bind(this);
+    this.getActiveRuns = this.getActiveRuns.bind(this);
+    this.updateUserData = this.updateUserData.bind(this);
+    this.startRun = this.startRun.bind(this);
   }
 
   componentDidMount() {
-    this.getUserInfo();
+    this.getUserInfoFromFB();
   }
 
-  acceptRun(e) {
-    var runId = 7;
-    var runnerId = 2;
-    axios.post('/runs', {runId: runId, runnerId: runnerId})
+  //POST REQUESTS //////////////////////////////////////////////////////////
+  acceptRun(runId) {
+    axios.post('/acceptrun', {runId: runId, runnerId: this.state.user.fbId})
       .then(res => {
         console.log(res);
       })
@@ -82,7 +87,31 @@ class App extends React.Component {
       });
   }
 
-  getUserInfo() {
+  updateUserData() {
+    axios.post('/userinfo', {//user info
+    })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  startRun(data) {
+    console.log('the data has arrived', data);
+    //data.userid = this.state.user.fbId;
+    // axios.post('/startrun', {})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+  }
+
+  //GET REQUESTS ///////////////////////////////////////////////////////////
+  getUserInfoFromFB() {
     axios.get('/userinfo')
       .then(res => {
         console.log('User info: ', res.data);
@@ -95,13 +124,26 @@ class App extends React.Component {
       });
   }
 
+  getUserRuns() {
+
+  }
+
+  getActiveRuns() {
+
+  }
+
+  updateUserInfo(e) {
+
+  }
+
+  //RENDER /////////////////////////////////////////////////////////////////
   render() {
     return (
       <Router history={browserHistory}>
         <div className="mainContainer" id="bootstrap-overrides">
           <div className="topBarContainer">
             <div className="dropdown">
-              <button className="dropbtn">Menu</button>
+              <img src="../logo/menu.png" alt="Menu" width="75"></img>
               <div className="dropdown-content">
                 <Link to="/">Home</Link>
                 <Link to="/startRun">Start Run</Link>
@@ -117,8 +159,8 @@ class App extends React.Component {
           </div>
           <div className="mainBodyContainer">
             <Route exact path="/" component={() => <Home runs={this.state.runs} acceptRun={this.acceptRun} />}/>
-            <Route path="/startRun" component={() => <StartRun/>}/>
-            <Route path="/myRuns" component={() => <MyRuns/>}/>
+            <Route path="/startRun" component={() => <StartRun startRun={this.startRun}/>}/>
+            <Route path="/myRuns" component={() => <MyRuns runs={this.state.runs}/>}/>
             <Route path="/profile" component={() => <Profile user={this.state.user}/>}/>
             <Route path="/logOut" component={() => <LogOut/>}/>
           </div>
