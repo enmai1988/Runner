@@ -143,7 +143,7 @@ class App extends React.Component {
         <div className="mainContainer" id="bootstrap-overrides">
           <div className="topBarContainer">
             <div className="dropdown">
-              <button className="dropbtn">Menu</button>
+              <img src="../logo/menu.png" alt="Menu" width="75"></img>
               <div className="dropdown-content">
                 <Link to="/">Home</Link>
                 <Link to="/startRun">Start Run</Link>
