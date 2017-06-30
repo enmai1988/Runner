@@ -21,8 +21,8 @@ class Model {
   }
 }
 
-(() => db.query("SELECT * FROM users WHERE username = 'shindelus'"))
-.then((result) => console.log(result))
-.catch((err) => console.log(err))
+// (() => db.query("SELECT * FROM users WHERE username = 'shindelus'"))
+// .then((result) => console.log(result))
+// .catch((err) => console.log(err))
 
 module.exports = Model;

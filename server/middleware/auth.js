@@ -1,5 +1,7 @@
 var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
+var db = require('../../database/models');
+const Promise = require('bluebird');
 
 // NEED TO GET APP KEY FOR THIS FILE
 var config = require('../config/config.js');
@@ -28,7 +30,30 @@ function(accessToken, refreshToken, profile, cb) {
 
   };
 
-  return cb(null, profile);
+  return db.Users.checkIfUserExists(profile)
+  .then((res) => {
+    console.log('USER in DB');
+    console.log(res);
+    if (res.length) {
+      throw res[0];
+    } else {
+      return db.Users.create(profile);
+    }
+  })
+  .then((res) => {
+    throw db.Users.checkIfUserExists(profile);
+  })
+  .catch((user) => {
+    // currently gets error because the schema 
+    // does not have the same properties as profile
+    if (user.fbId) {
+      return cb(null, user);
+    } else {
+      console.log('ERROR occured checking if user exists');
+      return cb(null, profile);
+    }
+  });
+
 }));
 
 passport.serializeUser(function(user, cb) {
