@@ -30,6 +30,7 @@
     "pg": "^6.4.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-modal": "^2.2.1",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "simple-react-forms": "^1.4.1"

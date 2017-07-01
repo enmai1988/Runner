@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 import {
   BrowserRouter as Router,
   Route,
@@ -64,19 +65,25 @@ class App extends React.Component {
         } 
       ],
       activeRuns: [],
-      completedRuns: []
+      completedRuns: [],
+      modalIsOpen: false
     };
 
     //post requests
     this.acceptRun = this.acceptRun.bind(this);
     this.startRun = this.startRun.bind(this);
     this.updateUserInfo = this.updateUserInfo.bind(this);
+    this.signupNewUser = this.signupNewUser.bind(this);
 
     //get requests
     this.getUserRuns = this.getUserRuns.bind(this);
     this.getActiveRuns = this.getActiveRuns.bind(this);
     this.getUserInfoFromFB = this.getUserInfoFromFB.bind(this);
     this.getUserInfo = this.getUserInfo.bind(this);
+
+    //modal 
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -115,6 +122,10 @@ class App extends React.Component {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  signupNewUser(data) {
+
   }
 
   //GET REQUESTS ///////////////////////////////////////////////////////////
@@ -183,6 +194,15 @@ class App extends React.Component {
       });
   }
 
+  //modal
+  openModal() {
+    this.setState({modalIsOpen: true});
+  }
+
+  closeModal() {
+    this.setState({modalIsOpen: false});
+  }
+
   //RENDER /////////////////////////////////////////////////////////////////
   render() {
     return (
@@ -211,6 +231,29 @@ class App extends React.Component {
             <Route path="/profile" component={() => <Profile user={this.state.user} updateUserData={this.updateUserData} />}/>
             <Route path="/logOut" component={() => <LogOut/>}/>
           </div>
+
+          <button onClick={this.openModal}>Open Modal</button>
+          <Modal 
+            isOpen={this.state.modalIsOpen}
+            onRequestClose={this.closeModal}
+          > 
+            <div>
+              <h2 ref={subtitle => this.subtitle = subtitle}>Sign Up For</h2>
+              <img src="../logo/RunnerLogo.png" width="170"/>
+              <br></br><br></br>
+              <form id="signupNewUserForm" onSubmit={this.signupNewUser}>
+                <label>Phone Number</label>
+                <input type="text" name="phoneNumber" required />
+                <label>Email</label>
+                <input type="text" name="email" required />
+                <label>Location</label>
+                <input type="text" name="location" required />
+                <br></br>
+                <button className="btn" type="submit">Sign Up</button>
+                <button className="btn" onClick={this.closeModal}>Close</button>
+              </form>
+            </div>
+          </Modal>
         </div>
       </Router>
     );
