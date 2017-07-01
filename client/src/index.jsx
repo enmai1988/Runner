@@ -62,14 +62,21 @@ class App extends React.Component {
           title: 'mow my lawn',
           description: 'I would like you to mow my lawn tomorrow.  it is one acre and I need it done by 2pm.',
         } 
-      ]
+      ],
+      activeRuns: [],
+      completedRuns: []
     };
 
+    //post requests
     this.acceptRun = this.acceptRun.bind(this);
+    this.startRun = this.startRun.bind(this);
+    this.updateUserInfo = this.updateUserInfo.bind(this);
+
+    //get requests
     this.getUserRuns = this.getUserRuns.bind(this);
     this.getActiveRuns = this.getActiveRuns.bind(this);
-    this.updateUserData = this.updateUserData.bind(this);
-    this.startRun = this.startRun.bind(this);
+    this.getUserInfoFromFB = this.getUserInfoFromFB.bind(this);
+    this.getUserInfo = this.getUserInfo.bind(this);
   }
 
   componentDidMount() {
@@ -87,21 +94,21 @@ class App extends React.Component {
       });
   }
 
-  updateUserData() {
-    axios.post('/userinfo', {//user info
-    })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  updateUserInfo(data) {
+    console.log('data is here', data);
+    // axios.post('/userinfo', {data})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
   startRun(data) {
     console.log('the data has arrived', data);
     //data.userid = this.state.user.fbId;
-    // axios.post('/startrun', {})
+    // axios.post('/startrun', {data})
     //   .then(res => {
     //     console.log(res);
     //   })
@@ -125,15 +132,55 @@ class App extends React.Component {
   }
 
   getUserRuns() {
-
+    axios.get('/runs')
+      .then(res => {
+        console.log('User info: ', res.data);
+        this.setState({
+          runs: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   getActiveRuns() {
-
+    axios.get('/runs/active')
+      .then(res => {
+        console.log('User info: ', res.data);
+        this.setState({
+          activeRuns: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
-  updateUserInfo(e) {
+  getCompletedRuns() {
+    axios.get('/runs/completed')
+      .then(res => {
+        console.log('User info: ', res.data);
+        this.setState({
+          completedRuns: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
+  getUserInfo() {
+    axios.get('/user')
+      .then(res => {
+        console.log('User info: ', res.data);
+        this.setState({
+          user: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   //RENDER /////////////////////////////////////////////////////////////////
@@ -161,7 +208,7 @@ class App extends React.Component {
             <Route exact path="/" component={() => <Home runs={this.state.runs} acceptRun={this.acceptRun} />}/>
             <Route path="/startRun" component={() => <StartRun startRun={this.startRun}/>}/>
             <Route path="/myRuns" component={() => <MyRuns runs={this.state.runs}/>}/>
-            <Route path="/profile" component={() => <Profile user={this.state.user}/>}/>
+            <Route path="/profile" component={() => <Profile user={this.state.user} updateUserData={this.updateUserData} />}/>
             <Route path="/logOut" component={() => <LogOut/>}/>
           </div>
         </div>
