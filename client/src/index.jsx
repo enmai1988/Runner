@@ -64,6 +64,7 @@ class App extends React.Component {
           description: 'I would like you to mow my lawn tomorrow.  it is one acre and I need it done by 2pm.',
         } 
       ],
+      availableRuns: [],
       activeRuns: [],
       completedRuns: [],
       modalIsOpen: false
@@ -124,13 +125,27 @@ class App extends React.Component {
       });
   }
 
-  signupNewUser(data) {
-
+  signupNewUser(e) {
+    e.preventDefault();
+    var data = {};
+    var form = document.getElementById('signupNewUserForm');
+    var formData = new FormData(form);
+    var iterator = formData.entries();
+    for (var pair of formData.entries()) {
+      data[pair[0]] = pair[1];
+    }
+    axios.post('/user/signup', {data})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   //GET REQUESTS ///////////////////////////////////////////////////////////
   getUserInfoFromFB() {
-    axios.get('/user/info')
+    axios.get('/user/info/fb')
       .then(res => {
         console.log('User info: ', res.data);
         this.setState({
@@ -155,10 +170,23 @@ class App extends React.Component {
       });
   }
 
+  getAvailableRuns() {
+    axios.get('/runs/available')
+      .then(res => {
+        console.log('available runs: ', res.data);
+        this.setState({
+          availableRuns: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   getActiveRuns() {
     axios.get('/runs/active')
       .then(res => {
-        console.log('User info: ', res.data);
+        console.log('active runs: ', res.data);
         this.setState({
           activeRuns: res.data
         });
@@ -182,7 +210,7 @@ class App extends React.Component {
   }
 
   getUserInfo() {
-    axios.get('/user')
+    axios.get('/user/info')
       .then(res => {
         console.log('User info: ', res.data);
         this.setState({
@@ -236,6 +264,7 @@ class App extends React.Component {
           <Modal 
             isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}
+            contentLabel="Sign Up Modal"
           > 
             <div>
               <h2 ref={subtitle => this.subtitle = subtitle}>Sign Up For</h2>
