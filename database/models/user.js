@@ -16,7 +16,6 @@ class Users extends Model {
   }
 
   create(userObj) {
-    let timestamp = Date.now();
     return db.query(`INSERT INTO USERS (fbId, firstName, lastName, displayName, gender, profilePic, profileUrl, location, phone, email) values ('${userObj.fbId}', '${userObj.firstName}', '${userObj.lastName}', '${userObj.displayName}', '${userObj.gender}', '${userObj.profilePic}', '${userObj.profileUrl}', '${userObj.location}', '${userObj.phone}', '${userObj.email}')`);
   }
 
