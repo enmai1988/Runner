@@ -22,11 +22,14 @@ app.use(express.static(path.join(__dirname, '/../client/public/assets')));
 // Database routes
 //////////////////////////////////////////////////////////////////////////////
 // functions that post and get from database should go here
+
+//accepts run data from client and posts to db 
 app.post('/startRun', (req, res) => {
   console.log(req.body);
   res.redirect('/');
 });
 
+//grabs user info from db 
 app.get('/userinfo', (req, res) => {
   console.log('USER');
   console.log(req.user);

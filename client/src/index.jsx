@@ -85,7 +85,7 @@ class App extends React.Component {
 
   //POST REQUESTS //////////////////////////////////////////////////////////
   acceptRun(runId) {
-    axios.post('/acceptrun', {runId: runId, runnerId: this.state.user.fbId})
+    axios.post('/runs/accept', {runId: runId, runnerId: this.state.user.fbId})
       .then(res => {
         console.log(res);
       })
@@ -96,30 +96,30 @@ class App extends React.Component {
 
   updateUserInfo(data) {
     console.log('data is here', data);
-    // axios.post('/userinfo', {data})
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    axios.post('/user/info', {data})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   startRun(data) {
     console.log('the data has arrived', data);
-    //data.userid = this.state.user.fbId;
-    // axios.post('/startrun', {data})
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    data.userid = this.state.user.fbId;
+    axios.post('/runs/start', {data})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   //GET REQUESTS ///////////////////////////////////////////////////////////
   getUserInfoFromFB() {
-    axios.get('/userinfo')
+    axios.get('/user/info')
       .then(res => {
         console.log('User info: ', res.data);
         this.setState({
@@ -132,7 +132,7 @@ class App extends React.Component {
   }
 
   getUserRuns() {
-    axios.get('/runs')
+    axios.get('/runs/user')
       .then(res => {
         console.log('User info: ', res.data);
         this.setState({
