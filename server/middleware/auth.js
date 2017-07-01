@@ -44,7 +44,7 @@ function(accessToken, refreshToken, profile, cb) {
     throw db.Users.checkIfUserExists(profile);
   })
   .catch((user) => {
-    // currently gets error because the schema 
+    // currently gets error because the schema
     // does not have the same properties as profile
     if (user.fbId) {
       return cb(null, user);

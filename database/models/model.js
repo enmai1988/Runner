@@ -1,5 +1,7 @@
 const db = require('../index.js');
 
+console.log('in models/model.js')
+
 class Model {
   constructor(tablename) {
     this.tablename = tablename;
@@ -20,9 +22,5 @@ class Model {
     return db.query(queryString);
   }
 }
-
-// (() => db.query("SELECT * FROM users WHERE username = 'shindelus'"))
-// .then((result) => console.log(result))
-// .catch((err) => console.log(err))
 
 module.exports = Model;
