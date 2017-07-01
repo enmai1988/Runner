@@ -12,7 +12,7 @@ class Runs extends Model {
   }
 
   create(runObj) {
-    return db.query(`INSERT INTO RUNS (userId, amount, location, status, title, description) values (${runObj.userId}, '${runObj.amount}', '${runObj.location}', '${runObj.status}', '${runObj.title}', '${runObj.description}')`);
+    return db.query(`INSERT INTO RUNS (userId, amount, location, status, title, description, ) values (${runObj.userId}, '${runObj.amount}', '${runObj.location}', '${runObj.status}', '${runObj.title}', '${runObj.description}')`);
   }
 
   getAllRunsWithStatus(status) {
@@ -28,7 +28,13 @@ class Runs extends Model {
   }
 
   updateStatus(runObj, status) {
-    return db.query(`UPDATE RUNS SET STATUS = '${status}' WHERE description = '${runObj.description}'`);
+    let date = new Date();
+    let dateStamp = date.toLocaleString();
+    if (status === 'finished') {
+      return db.query(`UPDATE RUNS SET STATUS = '${status}', finishTime = '${dateStamp}' WHERE id = '${runObj.id}'`);
+    } else if (status === 'started') {
+      return db.query(`UPDATE RUNS SET STATUS = '${status}', startTime = '${dateStamp}' WHERE id = '${runObj.id}'`);
+    }
   }
 
   updateRun(runObj) {

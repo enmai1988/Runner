@@ -29,9 +29,9 @@ module.exports = (db) => {
     .then(() => {
       return db.query("SELECT * from users");
     })
-    // .then(result => {
-    //   console.log(result.rows[0]);
-    // })
+    .then(result => {
+      console.log(result.rows[0]);
+    })
     .then(() => {
       // Create runs table
       return db.query(`
@@ -43,7 +43,10 @@ module.exports = (db) => {
           location VARCHAR(20),
           status VARCHAR(20),
           title VARCHAR(100),
-          description VARCHAR(255)
+          description VARCHAR(255),
+          expectedFinishTime VARCHAR(255),
+          startTime VARCHAR(255),
+          finishTime VARCHAR(255)
       );`);
     })
     .then(() => {
@@ -52,9 +55,9 @@ module.exports = (db) => {
     .then(() => {
       return db.query("SELECT * from runs");
     })
-    // .then(result => {
-    //   console.log(result.rows[0]);
-    // })
+    .then(result => {
+      console.log(result.rows[0]);
+    })
     .catch(err => {
       console.log(err);
     });
