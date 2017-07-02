@@ -48,19 +48,16 @@ module.exports = {
   },
 
   updateRun: (req, res, next) => {
-    return db.Runs.getRun(req.run)
-    .then((result) => {
-      if (!result.length) {
+    return Promise.resolve(req.run.id)
+    .then((exists) => {
+      if (!exists) {
         return db.Runs.create(req.run);
       } else {
-        throw result;
+        throw req.run;
       }
     })
-    .then(() => {
-      next();
-    })
-    .catch((result) => {
-      return db.Runs.updateStatus(result);
+    .catch((run) => {
+      return db.Runs.updateStatus(run);
     })
     .then(() => {
       next();

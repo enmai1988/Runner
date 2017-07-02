@@ -15,13 +15,6 @@ class Runs extends Model {
     return db.query(`INSERT INTO RUNS (userId, amount, location, status, title, description, ) values (${runObj.userId}, '${runObj.amount}', '${runObj.location}', '${runObj.status}', '${runObj.title}', '${runObj.description}')`);
   }
 
-  getRun(runObj) {
-    // searches for a run through its starter id
-
-    // stub for functionality (to remove after implemented)
-    return Promise.resolve([]);
-  }
-
   getAllRunsWithStatus(status) {
     return db.query(`SELECT amount, location, status, title, description FROM RUNS WHERE status = '${status}'`);
   }
