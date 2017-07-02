@@ -77,8 +77,9 @@ class App extends React.Component {
     this.signupNewUser = this.signupNewUser.bind(this);
 
     //get requests
-    this.getUserRuns = this.getUserRuns.bind(this);
-    this.getActiveRuns = this.getActiveRuns.bind(this);
+    this.getStartedRuns = this.getStartedRuns.bind(this);
+    this.getAvailableRuns = this.getAvailableRuns.bind(this);
+    this.getFinishedRuns = this.getFinishedRuns.bind(this);
     this.getUserInfoFromFB = this.getUserInfoFromFB.bind(this);
     this.getUserInfo = this.getUserInfo.bind(this);
 
@@ -89,43 +90,27 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getUserInfoFromFB();
+
+    //GET user info from db
+    //this.getUserInfo();
+
+    //GET all types of runs
+    //this.getAvailableRuns();
+    //this.getFinishedRuns();
+    //this.getStartedRuns();
   }
 
   //POST REQUESTS //////////////////////////////////////////////////////////
-  acceptRun(run) {
-    run.runnerId = this.user.id;
-    console.log('run data', run);
-    axios.post('/runs/accept', {run})
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
   //fix to send all user data
   updateUserInfo(data) {
     console.log('updated user data', data);
-    axios.post('/user/info', {data})
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  startRun(data) {
-    console.log('the data has arrived', data);
-    data.userid = this.state.user.fbId;
-    axios.post('/runs/start', {data})
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    // axios.post('/user/info', {data})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
   signupNewUser(e) {
@@ -138,16 +123,42 @@ class App extends React.Component {
       data[pair[0]] = pair[1];
     }
     var obj = Object.assign({}, data, this.user);
-    axios.post('/user/signup', {obj})
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    console.log('signup user data', obj);
+    // axios.post('/user/signup', {obj})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+  }
+
+  startRun(data) {
+    data.userid = this.state.user.fbId;
+    console.log('the data has arrived', data);
+    // axios.post('/runs/start', {data})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+  }
+
+  acceptRun(run) {
+    run.runnerId = this.user.id;
+    console.log('run data', run);
+    // axios.post('/runs/accept', {run})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
   //GET REQUESTS ///////////////////////////////////////////////////////////
+  //USERS
   getUserInfoFromFB() {
     axios.get('/user/info/fb')
       .then(res => {
@@ -161,12 +172,12 @@ class App extends React.Component {
       });
   }
 
-  getUserRuns() {
-    axios.get('/runs/user')
+  getUserInfo() {
+    axios.get('/user/info')
       .then(res => {
         console.log('User info: ', res.data);
         this.setState({
-          runs: res.data
+          user: res.data
         });
       })
       .catch(err => {
@@ -174,6 +185,7 @@ class App extends React.Component {
       });
   }
 
+  //RUNS
   getAvailableRuns() {
     axios.get('/runs/available')
       .then(res => {
@@ -187,8 +199,8 @@ class App extends React.Component {
       });
   }
 
-  getActiveRuns() {
-    axios.get('/runs/active')
+  getStartedRuns() {
+    axios.get('/runs/started')
       .then(res => {
         console.log('active runs: ', res.data);
         this.setState({
@@ -200,25 +212,12 @@ class App extends React.Component {
       });
   }
 
-  getCompletedRuns() {
-    axios.get('/runs/completed')
+  getFinishedRuns() {
+    axios.get('/runs/finished')
       .then(res => {
         console.log('User info: ', res.data);
         this.setState({
           completedRuns: res.data
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  getUserInfo() {
-    axios.get('/user/info')
-      .then(res => {
-        console.log('User info: ', res.data);
-        this.setState({
-          user: res.data
         });
       })
       .catch(err => {
