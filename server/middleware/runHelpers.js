@@ -4,6 +4,7 @@ const Promise = require('bluebird');
 module.exports = {
 
   mapRun: (req, res, next) => {
+    // maps body to run object if it exists
     if (Object.keys(req.body).length) {
       req.run = req.body;
       next();
