@@ -11,6 +11,15 @@ module.exports = {
     }
   },
 
+  getUserRuns: (req, res, next) => {
+    var userId = req.body;
+    db.Runs.getAllRunsWithUserId(userId)
+    .then((runs) => {
+      res.runs = runs;
+      next();
+    });
+  },
+
   getAvailableRuns: (req, res, next) => {
     // gets all available runs (no runner id)
     return db.Runs.getAllRunsWithStatus('available')
@@ -62,14 +71,6 @@ module.exports = {
     .then(() => {
       next();
     });
-    // if no run exists
-      // creates run
-      // (db.Runs.create(req.run))
-    // if run exists with available status
-      // sets run to started
-    // if run exists with started status
-      // sets run to finished
-        // (db.Runs.finishRun(req.run))
   }
 
 };

@@ -9,6 +9,8 @@ module.exports = {
     if (Object.keys(req.body).length) {
       req.userinfo = req.body;
       next();
+    } else {
+      res.send('BAD REQUEST');
     }
   },
 

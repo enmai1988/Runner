@@ -23,22 +23,60 @@ app.use(express.static(path.join(__dirname, '/../client/public/assets')));
 //////////////////////////////////////////////////////////////////////////////
 // functions that post and get from database should go here
 
-//accepts run data from client and posts to db 
-app.post('/startRun', (req, res) => {
-  console.log(req.body);
-  res.redirect('/');
-});
+// routes for runs
+app.route('/runs')
 
-//grabs user info from db 
-app.get('/userinfo', (req, res) => {
-  console.log('USER');
-  console.log(req.user);
-  res.send(req.user);
-});
+  // POST routes
 
-app.post('/runs', (req, res) => {
-  res.send('Posted run');
-});
+  .post(util.Runs.mapRun)
+
+  .post('/accept', (req, res) => {
+    res.redirect('/runs/update');
+  })
+
+  .post('/start', (req, res) => {
+    res.redirect('/runs/update');
+  })
+
+  .post('/update', util.Runs.updateRun, (req, res) => {
+    res.send('Updated successfully');
+  })
+
+
+  // GET routes
+
+  .get('/user', util.Runs.getUserRuns)
+
+  .get('/available', util.Runs.getAvailableRuns)
+
+  .get('/active', util.Runs.getStartedRuns)
+
+  .get('/completed', util.Runs.getFinishedRuns)
+
+  .get((req, res) => {
+    res.send(res.runs);
+  });
+
+
+app.route('/user')
+
+  // POST routes
+
+  .post(mapUser)
+
+  .post('/info', (req, res) => {
+    
+  })
+
+  .post('/signup', (req, res) => {
+
+  })
+
+  // GET routes
+
+  .get('/info/fb', (req, res) => {
+    res.send(req.user);
+  });
 
 //////////////////////////////////////////////////////////////////////////////
 
