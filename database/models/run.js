@@ -4,7 +4,7 @@ const db = require('../index.js');
 var pg = require('pg');
 const Promise = require('bluebird');
 
-console.log('in models/run.js')
+console.log('in models/run.js');
 
 class Runs extends Model {
   constructor() {
@@ -15,12 +15,19 @@ class Runs extends Model {
     return db.query(`INSERT INTO RUNS (userId, amount, location, status, title, description, ) values (${runObj.userId}, '${runObj.amount}', '${runObj.location}', '${runObj.status}', '${runObj.title}', '${runObj.description}')`);
   }
 
+  getRun(runObj) {
+    // searches for a run through its starter id
+
+    // stub for functionality (to remove after implemented)
+    return Promise.resolve([]);
+  }
+
   getAllRunsWithStatus(status) {
     return db.query(`SELECT amount, location, status, title, description FROM RUNS WHERE status = '${status}'`);
   }
 
   deleteRun(runObj) {
-    return db.query(`DELETE FROM RUNS WHERE DESCRIPTION = '${runObj.description}'`)
+    return db.query(`DELETE FROM RUNS WHERE DESCRIPTION = '${runObj.description}'`);
   }
 
   addRunner(runObj, userId) {
@@ -28,11 +35,14 @@ class Runs extends Model {
   }
 
   updateStatus(runObj, status) {
+    // Can we just get the status from the run object instead of passing it as a parameter here?
     let date = new Date();
     let dateStamp = date.toLocaleString();
     if (status === 'finished') {
       return db.query(`UPDATE RUNS SET STATUS = '${status}', finishTime = '${dateStamp}' WHERE id = '${runObj.id}'`);
     } else if (status === 'started') {
+      // shouldn't the status be changed to finished here? instead of setting it to started again?
+      // also maybe we should add a third if statement for available -> started
       return db.query(`UPDATE RUNS SET STATUS = '${status}', startTime = '${dateStamp}' WHERE id = '${runObj.id}'`);
     }
   }
