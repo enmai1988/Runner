@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 import {
   BrowserRouter as Router,
   Route,
@@ -62,14 +63,28 @@ class App extends React.Component {
           title: 'mow my lawn',
           description: 'I would like you to mow my lawn tomorrow.  it is one acre and I need it done by 2pm.',
         } 
-      ]
+      ],
+      availableRuns: [],
+      activeRuns: [],
+      completedRuns: [],
+      modalIsOpen: false
     };
 
+    //post requests
     this.acceptRun = this.acceptRun.bind(this);
+    this.startRun = this.startRun.bind(this);
+    this.updateUserInfo = this.updateUserInfo.bind(this);
+    this.signupNewUser = this.signupNewUser.bind(this);
+
+    //get requests
     this.getUserRuns = this.getUserRuns.bind(this);
     this.getActiveRuns = this.getActiveRuns.bind(this);
-    this.updateUserData = this.updateUserData.bind(this);
-    this.startRun = this.startRun.bind(this);
+    this.getUserInfoFromFB = this.getUserInfoFromFB.bind(this);
+    this.getUserInfo = this.getUserInfo.bind(this);
+
+    //modal 
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -78,7 +93,7 @@ class App extends React.Component {
 
   //POST REQUESTS //////////////////////////////////////////////////////////
   acceptRun(runId) {
-    axios.post('/acceptrun', {runId: runId, runnerId: this.state.user.fbId})
+    axios.post('/runs/accept', {runId: runId, runnerId: this.state.user.fbId})
       .then(res => {
         console.log(res);
       })
@@ -87,9 +102,9 @@ class App extends React.Component {
       });
   }
 
-  updateUserData() {
-    axios.post('/userinfo', {//user info
-    })
+  updateUserInfo(data) {
+    console.log('data is here', data);
+    axios.post('/user/info', {data})
       .then(res => {
         console.log(res);
       })
@@ -100,19 +115,37 @@ class App extends React.Component {
 
   startRun(data) {
     console.log('the data has arrived', data);
-    //data.userid = this.state.user.fbId;
-    // axios.post('/startrun', {})
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    data.userid = this.state.user.fbId;
+    axios.post('/runs/start', {data})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  signupNewUser(e) {
+    e.preventDefault();
+    var data = {};
+    var form = document.getElementById('signupNewUserForm');
+    var formData = new FormData(form);
+    var iterator = formData.entries();
+    for (var pair of formData.entries()) {
+      data[pair[0]] = pair[1];
+    }
+    axios.post('/user/signup', {data})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   //GET REQUESTS ///////////////////////////////////////////////////////////
   getUserInfoFromFB() {
-    axios.get('/userinfo')
+    axios.get('/user/info/fb')
       .then(res => {
         console.log('User info: ', res.data);
         this.setState({
@@ -125,15 +158,77 @@ class App extends React.Component {
   }
 
   getUserRuns() {
+    axios.get('/runs/user')
+      .then(res => {
+        console.log('User info: ', res.data);
+        this.setState({
+          runs: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
+  getAvailableRuns() {
+    axios.get('/runs/available')
+      .then(res => {
+        console.log('available runs: ', res.data);
+        this.setState({
+          availableRuns: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   getActiveRuns() {
-
+    axios.get('/runs/active')
+      .then(res => {
+        console.log('active runs: ', res.data);
+        this.setState({
+          activeRuns: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
-  updateUserInfo(e) {
+  getCompletedRuns() {
+    axios.get('/runs/completed')
+      .then(res => {
+        console.log('User info: ', res.data);
+        this.setState({
+          completedRuns: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
+  getUserInfo() {
+    axios.get('/user/info')
+      .then(res => {
+        console.log('User info: ', res.data);
+        this.setState({
+          user: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  //modal
+  openModal() {
+    this.setState({modalIsOpen: true});
+  }
+
+  closeModal() {
+    this.setState({modalIsOpen: false});
   }
 
   //RENDER /////////////////////////////////////////////////////////////////
@@ -161,9 +256,33 @@ class App extends React.Component {
             <Route exact path="/" component={() => <Home runs={this.state.runs} acceptRun={this.acceptRun} />}/>
             <Route path="/startRun" component={() => <StartRun startRun={this.startRun}/>}/>
             <Route path="/myRuns" component={() => <MyRuns runs={this.state.runs}/>}/>
-            <Route path="/profile" component={() => <Profile user={this.state.user}/>}/>
+            <Route path="/profile" component={() => <Profile user={this.state.user} updateUserData={this.updateUserData} />}/>
             <Route path="/logOut" component={() => <LogOut/>}/>
           </div>
+
+          <button onClick={this.openModal}>Open Modal</button>
+          <Modal 
+            isOpen={this.state.modalIsOpen}
+            onRequestClose={this.closeModal}
+            contentLabel="Sign Up Modal"
+          > 
+            <div>
+              <h2 ref={subtitle => this.subtitle = subtitle}>Sign Up For</h2>
+              <img src="../logo/RunnerLogo.png" width="170"/>
+              <br></br><br></br>
+              <form id="signupNewUserForm" onSubmit={this.signupNewUser}>
+                <label>Phone Number</label>
+                <input type="text" name="phoneNumber" required />
+                <label>Email</label>
+                <input type="text" name="email" required />
+                <label>Location</label>
+                <input type="text" name="location" required />
+                <br></br>
+                <button className="btn" type="submit">Sign Up</button>
+                <button className="btn" onClick={this.closeModal}>Close</button>
+              </form>
+            </div>
+          </Modal>
         </div>
       </Router>
     );
