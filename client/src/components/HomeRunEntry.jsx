@@ -21,7 +21,7 @@ const HomeRunEntry = (props) => (
       <h4>Payout</h4><p>{props.run.amount}</p> 
     </div>
     <div className="homeRun">
-      <button className="btn" onClick={() => props.acceptRun(props.run.id)}>Accept Run</button>
+      <button className="btn" onClick={() => props.acceptRun(props.run)}>Accept Run</button>
     </div>
   </li>
 );

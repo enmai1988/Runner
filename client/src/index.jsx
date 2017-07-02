@@ -92,8 +92,10 @@ class App extends React.Component {
   }
 
   //POST REQUESTS //////////////////////////////////////////////////////////
-  acceptRun(runId) {
-    axios.post('/runs/accept', {runId: runId, runnerId: this.state.user.fbId})
+  acceptRun(run) {
+    run.runnerId = this.user.id;
+    console.log('run data', run);
+    axios.post('/runs/accept', {run})
       .then(res => {
         console.log(res);
       })
@@ -102,8 +104,9 @@ class App extends React.Component {
       });
   }
 
+  //fix to send all user data
   updateUserInfo(data) {
-    console.log('data is here', data);
+    console.log('updated user data', data);
     axios.post('/user/info', {data})
       .then(res => {
         console.log(res);
@@ -134,7 +137,8 @@ class App extends React.Component {
     for (var pair of formData.entries()) {
       data[pair[0]] = pair[1];
     }
-    axios.post('/user/signup', {data})
+    var obj = Object.assign({}, data, this.user);
+    axios.post('/user/signup', {obj})
       .then(res => {
         console.log(res);
       })
