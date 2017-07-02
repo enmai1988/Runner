@@ -35,7 +35,7 @@ class Users extends Model {
   }
 
   updateUserInfo(userObj) {
-    return db.query(`UPDATE USERS SET firstName = '${userObj.firstName}', lastName = '${userObj.lastName}', displayName = '${userObj.displayName}', gender = '${userObj.gender}', profilePic = '${userObj.profilePic}', profileUrl = '${userObj.profileUrl}', location = '${userObj.location}', phone = '${userObj.phone}', email = '${userObj.email}' WHERE fbId = '${userObj.fbId}'`);
+    return db.query(`UPDATE USERS SET fbId = '${userObj.fbId}', firstName = '${userObj.firstName}', lastName = '${userObj.lastName}', displayName = '${userObj.displayName}', gender = '${userObj.gender}', profilePic = '${userObj.profilePic}', profileUrl = '${userObj.profileUrl}', location = '${userObj.location}', phone = '${userObj.phone}', email = '${userObj.email}' WHERE id = '${userObj.id}'`);
   }
 
 }
