@@ -31,8 +31,10 @@ class StartRun extends React.Component {
           <input type="text" name="payout"/>
           <label>Description</label>
           <input type="text" name="description"/>
-          <label>Time</label>
-          <input type="datetime-local" name="time"/>
+          <label>Start Time</label>
+          <input type="datetime-local" name="startTime"/>
+          <label>Expected Finish Time</label>
+          <input type="datetime-local" name="expectedFinishTime"/>
           <br></br>
           <button className="btn" type="submit">Start Run</button>
         </form>

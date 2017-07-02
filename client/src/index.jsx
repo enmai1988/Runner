@@ -21,47 +21,72 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      user: {},
+      user: {
+        id: 1,
+        fbId: 324234,
+        firstName: 'Kai',
+        lastName: 'Mashima',
+        displayName: 'Kai Mashima',
+        gender: 'male',
+        rating: 5,
+        profilePic: null,
+        profileUrl: null,
+        location: 'San Francisco',
+        phone: '6508155855',
+        email: 'kaiomashima@gmail.com',
+      },
       runs: [ 
         {
           id: 1,
-          userid: 1,
-          runnerid: 4,
+          userId: 1,
+          runnerId: null,
           amount: '$20',
           location: 'San Francisco',
           status: 'available',
           title: 'walk my dog',
           description: 'I would like you to walk my dog for 30 mins within the next 2 hours.  Key is under my mat',
+          expectedFinishTime: '6:30PM',
+          startTime: '6:00PM',
+          finishTime: null,
         },
         {
           id: 2,
-          userid: 3,
-          runnerid: 1,
+          userId: 3,
+          runnerId: null,
           amount: '$30',
           location: 'San Francisco',
           status: 'available',
           title: 'get groceries',
           description: 'I would like you to get my groceries at safeway within the next 3 hours.  I will send you the address and list.',
+          expectedFinishTime: '6:30PM',
+          startTime: '6:00PM',
+          finishTime: null,
         },
         {
           id: 3,
-          userid: 4,
-          runnerid: 2,
+          userId: 4,
+          runnerId: null,
           amount: '$7',
           location: 'San Francisco',
           status: 'available',
           title: 'get me coffee',
           description: 'I would like you to get me 3 coffees in the next 30 mins.  I will give you the list and the address.',
+          expectedFinishTime: '6:30PM',
+          startTime: '6:00PM',
+          finishTime: null,
         },
         {
           id: 4,
-          userid: 2,
-          runnerid: 3,
+          userId: 2,
+          runnerId: null,
           amount: '$60',
           location: 'San Francisco',
           status: 'available',
           title: 'mow my lawn',
           description: 'I would like you to mow my lawn tomorrow.  it is one acre and I need it done by 2pm.',
+          expectedFinishTime: '6:30PM',
+          startTime: '6:00PM',
+          finishTime: null,
         } 
       ],
       availableRuns: [],
@@ -77,8 +102,9 @@ class App extends React.Component {
     this.signupNewUser = this.signupNewUser.bind(this);
 
     //get requests
-    this.getUserRuns = this.getUserRuns.bind(this);
-    this.getActiveRuns = this.getActiveRuns.bind(this);
+    this.getStartedRuns = this.getStartedRuns.bind(this);
+    this.getAvailableRuns = this.getAvailableRuns.bind(this);
+    this.getFinishedRuns = this.getFinishedRuns.bind(this);
     this.getUserInfoFromFB = this.getUserInfoFromFB.bind(this);
     this.getUserInfo = this.getUserInfo.bind(this);
 
@@ -89,40 +115,41 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getUserInfoFromFB();
+    this.checkForNullUserValues();
+
+    //GET user info from db
+    //this.getUserInfo();
+
+    //GET all types of runs
+    //this.getAvailableRuns();
+    //this.getFinishedRuns();
+    //this.getStartedRuns();
+  }
+
+  checkForNullUserValues() {
+    var user = this.state.user;
+    var nullExist = false;
+    for (var prop in this.state.user) {
+      if (user[prop] === null) {
+        nullExist =true;
+      }
+    }
+    if (nullExist === true) {
+      this.openModal();
+    }
   }
 
   //POST REQUESTS //////////////////////////////////////////////////////////
-  acceptRun(runId) {
-    axios.post('/runs/accept', {runId: runId, runnerId: this.state.user.fbId})
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
+  //fix to send all user data
   updateUserInfo(data) {
-    console.log('data is here', data);
-    axios.post('/user/info', {data})
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  startRun(data) {
-    console.log('the data has arrived', data);
-    data.userid = this.state.user.fbId;
-    axios.post('/runs/start', {data})
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    console.log('updated user data', data);
+    // axios.post('/user/info', {data})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
   signupNewUser(e) {
@@ -134,42 +161,77 @@ class App extends React.Component {
     for (var pair of formData.entries()) {
       data[pair[0]] = pair[1];
     }
-    axios.post('/user/signup', {data})
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    var obj = Object.assign({}, data, this.user);
+    console.log('signup user data', obj);
+    // axios.post('/user/signup', {obj})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+    this.closeModal();
+  }
+
+  startRun(data) {
+    data.userid = this.state.user.fbId;
+    data.runnerId = null;
+    data.id = null;
+    data.status = 'available';
+    data.finishTime = null;
+    console.log('the data has arrived', data);
+    // axios.post('/runs/start', {data})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+  }
+
+  acceptRun(run) {
+    console.log(run);
+    console.log(this.state.user.id);
+    run.runnerId = this.state.user.id;
+    console.log('run data', run);
+    // axios.post('/runs/accept', {run})
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
   //GET REQUESTS ///////////////////////////////////////////////////////////
+  //USERS
   getUserInfoFromFB() {
-    axios.get('/user/info/fb')
-      .then(res => {
-        console.log('User info: ', res.data);
-        this.setState({
-          user: res.data
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    // axios.get('/user/info/fb')
+    //   .then(res => {
+    //     console.log('User info: ', res.data);
+    //     this.setState({
+    //       user: res.data
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
-  getUserRuns() {
-    axios.get('/runs/user')
-      .then(res => {
-        console.log('User info: ', res.data);
-        this.setState({
-          runs: res.data
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  getUserInfo() {
+    // axios.get('/user/info')
+    //   .then(res => {
+    //     console.log('User info: ', res.data);
+    //     this.setState({
+    //       user: res.data
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
+  //RUNS
   getAvailableRuns() {
     axios.get('/runs/available')
       .then(res => {
@@ -183,8 +245,8 @@ class App extends React.Component {
       });
   }
 
-  getActiveRuns() {
-    axios.get('/runs/active')
+  getStartedRuns() {
+    axios.get('/runs/started')
       .then(res => {
         console.log('active runs: ', res.data);
         this.setState({
@@ -196,25 +258,12 @@ class App extends React.Component {
       });
   }
 
-  getCompletedRuns() {
-    axios.get('/runs/completed')
+  getFinishedRuns() {
+    axios.get('/runs/finished')
       .then(res => {
         console.log('User info: ', res.data);
         this.setState({
           completedRuns: res.data
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  getUserInfo() {
-    axios.get('/user/info')
-      .then(res => {
-        console.log('User info: ', res.data);
-        this.setState({
-          user: res.data
         });
       })
       .catch(err => {
@@ -260,7 +309,6 @@ class App extends React.Component {
             <Route path="/logOut" component={() => <LogOut/>}/>
           </div>
 
-          <button onClick={this.openModal}>Open Modal</button>
           <Modal 
             isOpen={this.state.modalIsOpen}
             onRequestClose={this.closeModal}
@@ -279,7 +327,6 @@ class App extends React.Component {
                 <input type="text" name="location" required />
                 <br></br>
                 <button className="btn" type="submit">Sign Up</button>
-                <button className="btn" onClick={this.closeModal}>Close</button>
               </form>
             </div>
           </Modal>
