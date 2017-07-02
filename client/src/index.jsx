@@ -175,6 +175,10 @@ class App extends React.Component {
 
   startRun(data) {
     data.userid = this.state.user.fbId;
+    data.runnerId = null;
+    data.id = null;
+    data.status = 'available';
+    data.finishTime = null;
     console.log('the data has arrived', data);
     // axios.post('/runs/start', {data})
     //   .then(res => {
