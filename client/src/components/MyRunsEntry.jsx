@@ -26,8 +26,8 @@ const MyRunsEntry = (props) => (
     <div className="myRun">
       <h4>Finish Time</h4><p>{props.run.finishTime}</p>
     </div>
-    <div className="myRun"> 
-      <h4>Payout</h4><p>{props.run.amount}</p> 
+    <div className="myRun">
+      <h4>Payout</h4><p>{props.run.amount}</p>
     </div>
   </li>
 );
