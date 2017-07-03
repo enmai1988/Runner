@@ -22,7 +22,6 @@ class Profile extends React.Component {
       this.props.updateUserData({location: location});
       $('#profileLocationInput').val('');
     }
-
   }
 
   render() {
