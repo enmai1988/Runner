@@ -154,7 +154,7 @@ class App extends React.Component {
     runObj.status = 'available';
     runObj.finishTime = null;
     console.log('run obj', runObj);
-    axios.post('/runs/start', {runObj})
+    axios.post('/runs/start', runObj)
       .then(res => {
         console.log(res);
       })
@@ -168,7 +168,7 @@ class App extends React.Component {
     console.log(this.state.user.id);
     runObj.runnerId = this.state.user.id;
     console.log('run obj', runObj);
-    axios.post('/runs/accept', {runObj})
+    axios.post('/runs/accept', runObj)
       .then(res => {
         console.log(res);
       })

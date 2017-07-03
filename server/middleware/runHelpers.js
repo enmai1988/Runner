@@ -7,7 +7,7 @@ module.exports = {
     // maps body to run object if it exists
     // console.log('RUN: ', req.body);
     if (Object.keys(req.body).length) {
-      req.run = req.body;
+      req.run = req.body.runObj;
       next();
     }
   },
@@ -66,10 +66,18 @@ module.exports = {
     });
   },
 
+  // startRun: (req, res, next) => {
+  //   return Promise.resolve(req.run.id)
+  //   .then((exists) => {
+      
+  //   })
+  // },
+
   updateRun: (req, res, next) => {
     return Promise.resolve(req.run.id)
     .then((exists) => {
       if (!exists) {
+        console.log('RUN: ', req.run);
         return db.Runs.create(req.run);
       } else {
         throw req.run;

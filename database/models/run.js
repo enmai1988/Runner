@@ -12,7 +12,7 @@ class Runs extends Model {
   }
 
   create(runObj) {
-    return db.query(`INSERT INTO RUNS (userId, amount, location, status, title, description, expectedFinishTime) values (${runObj.userId}, '${runObj.amount}', '${runObj.location}', '${runObj.status}', '${runObj.title}', '${runObj.description}', '${runObj.expectedFinishTime}')`);
+    return db.query(`INSERT INTO RUNS (userId, payout, location, status, title, description, startTime, expectedFinishTime) values (${runObj.userId}, '${runObj.amount}', '${runObj.location}', '${runObj.status}', '${runObj.title}', '${runObj.description}', '${runObj.startTime}, '${runObj.expectedFinishTime}')`);
   }
 
   getAllRunsWithUserId(userId) {
