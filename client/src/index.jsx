@@ -22,73 +22,19 @@ class App extends React.Component {
 
     this.state = {
       user: {
-        id: 1,
-        fbId: 324234,
-        firstName: 'Kai',
-        lastName: 'Mashima',
-        displayName: 'Kai Mashima',
-        gender: 'male',
-        rating: 5,
-        profilePic: null,
-        profileUrl: null,
-        location: 'San Francisco',
-        phone: '6508155855',
-        email: 'kaiomashima@gmail.com',
+        id: null,
+        fbId: null,
+        firstname: null,
+        lastname: null,
+        displayname: null,
+        gender: null,
+        rating: null,
+        profilepic: null,
+        profileurl: null,
+        location: null,
+        phone: null,
+        email: null,
       },
-      runs: [ 
-        {
-          id: 1,
-          userId: 1,
-          runnerId: null,
-          amount: '$20',
-          location: 'San Francisco',
-          status: 'available',
-          title: 'walk my dog',
-          description: 'I would like you to walk my dog for 30 mins within the next 2 hours.  Key is under my mat',
-          expectedFinishTime: '6:30PM',
-          startTime: '6:00PM',
-          finishTime: null,
-        },
-        {
-          id: 2,
-          userId: 3,
-          runnerId: null,
-          amount: '$30',
-          location: 'San Francisco',
-          status: 'available',
-          title: 'get groceries',
-          description: 'I would like you to get my groceries at safeway within the next 3 hours.  I will send you the address and list.',
-          expectedFinishTime: '6:30PM',
-          startTime: '6:00PM',
-          finishTime: null,
-        },
-        {
-          id: 3,
-          userId: 4,
-          runnerId: null,
-          amount: '$7',
-          location: 'San Francisco',
-          status: 'available',
-          title: 'get me coffee',
-          description: 'I would like you to get me 3 coffees in the next 30 mins.  I will give you the list and the address.',
-          expectedFinishTime: '6:30PM',
-          startTime: '6:00PM',
-          finishTime: null,
-        },
-        {
-          id: 4,
-          userId: 2,
-          runnerId: null,
-          amount: '$60',
-          location: 'San Francisco',
-          status: 'available',
-          title: 'mow my lawn',
-          description: 'I would like you to mow my lawn tomorrow.  it is one acre and I need it done by 2pm.',
-          expectedFinishTime: '6:30PM',
-          startTime: '6:00PM',
-          finishTime: null,
-        } 
-      ],
       availableRuns: [],
       activeRuns: [],
       completedRuns: [],
@@ -114,11 +60,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    //if new db sign in get data from 
     this.getUserInfoFromFB();
-    //this.checkForNullUserValues();
-
-    //GET user info from db
-    this.getUserInfo();
+    this.openSignUpModal();
+    //send updated user info to db
 
     //GET all types of runs
     this.getAvailableRuns();
@@ -127,17 +72,8 @@ class App extends React.Component {
     console.log('state', this.state);
   }
 
-  checkForNullUserValues() {
-    var user = this.state.user;
-    var nullExist = false;
-    for (var prop in this.state.user) {
-      if (user[prop] === null) {
-        nullExist = true;
-      }
-    }
-    if (nullExist === true) {
-      this.openModal();
-    }
+  openSignUpModal() {
+    this.openModal();
   }
 
   //POST REQUESTS //////////////////////////////////////////////////////////

@@ -22,7 +22,6 @@ class Profile extends React.Component {
       this.props.updateUserData({location: location});
       $('#profileLocationInput').val('');
     }
-
   }
 
   render() {
@@ -40,13 +39,13 @@ class Profile extends React.Component {
         <button className="btn" onClick={this.handleSubmit}>Change Email</button>
         <br></br><br></br>
         <h5>Phone Number: </h5>
-        <p>NEED</p>
+        <p>{this.props.user.phone}</p>
         <input type="text" id="profilePhoneInput" placeholder="New Phone Number..."/>
         <br></br>
         <button className="btn" onClick={this.handleSubmit}>Change Phone Number</button>
         <br></br><br></br>
         <h5>Location: </h5>
-        <p>NEED</p>
+        <p>{this.props.user.location}</p>
         <input type="text" id="profileLocationInput" placeholder="New Location..."/>
         <br></br>
         <button className="btn" onClick={this.handleSubmit}>Change Location</button>
