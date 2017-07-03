@@ -13,13 +13,13 @@ class Profile extends React.Component {
     var location = $('#profileLocationInput').val() || null;
     //console.log(email, phoneNum, location);
     if (email !== null) {
-      this.props.updateUserData(email);
+      this.props.updateUserData({email: email});
       $('#profileEmailInput').val('');
     } else if (phoneNum !== null) {
-      this.props.updateUserData(phoneNum);
+      this.props.updateUserData({phone: phoneNum});
       $('#profilePhoneInput').val('');
     } else if (location !== null) {
-      this.props.updateUserData(location);
+      this.props.updateUserData({location: location});
       $('#profileLocationInput').val('');
     }
 

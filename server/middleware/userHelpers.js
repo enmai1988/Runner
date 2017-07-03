@@ -1,5 +1,6 @@
 var db = require('../../database/models');
 const Promise = require('bluebird');
+var _ = require('underscore');
 // add user is done in Auth!
 
 module.exports = {
@@ -9,12 +10,15 @@ module.exports = {
     if (Object.keys(req.body).length) {
       req.userinfo = req.body;
       next();
+    } else {
+      res.send('BAD REQUEST');
     }
   },
 
-  editUser: (req, res, next) => {
+  update: (req, res, next) => {
     // should edit missing user info after sign up page
-    db.Users.updateUserInfo(req.userinfo)
+    req.user = _.extend(req.user, req.userinfo);
+    db.Users.updateUserInfo(req.user)
     .then(() => {
       next();
     });

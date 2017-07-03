@@ -131,7 +131,7 @@ class App extends React.Component {
     var nullExist = false;
     for (var prop in this.state.user) {
       if (user[prop] === null) {
-        nullExist =true;
+        nullExist = true;
       }
     }
     if (nullExist === true) {
@@ -143,7 +143,7 @@ class App extends React.Component {
   //fix to send all user data
   updateUserInfo(data) {
     console.log('updated user data', data);
-    // axios.post('/user/info', {data})
+    // axios.post('/user/info', data)
     //   .then(res => {
     //     console.log(res);
     //   })
@@ -305,7 +305,7 @@ class App extends React.Component {
             <Route exact path="/" component={() => <Home runs={this.state.runs} acceptRun={this.acceptRun} />}/>
             <Route path="/startRun" component={() => <StartRun startRun={this.startRun}/>}/>
             <Route path="/myRuns" component={() => <MyRuns runs={this.state.runs}/>}/>
-            <Route path="/profile" component={() => <Profile user={this.state.user} updateUserData={this.updateUserData} />}/>
+            <Route path="/profile" component={() => <Profile user={this.state.user} updateUserData={this.updateUserInfo} />}/>
             <Route path="/logOut" component={() => <LogOut/>}/>
           </div>
 

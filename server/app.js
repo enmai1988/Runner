@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var util = require('./middleware');
 var passport = require('passport');
+var router = require('./routers');
 
 var app = express();
 
@@ -23,22 +24,12 @@ app.use(express.static(path.join(__dirname, '/../client/public/assets')));
 //////////////////////////////////////////////////////////////////////////////
 // functions that post and get from database should go here
 
-//accepts run data from client and posts to db 
-app.post('/startRun', (req, res) => {
-  console.log(req.body);
-  res.redirect('/');
-});
+// routes for runs
 
-//grabs user info from db 
-app.get('/userinfo', (req, res) => {
-  console.log('USER');
-  console.log(req.user);
-  res.send(req.user);
-});
+app.use('/runs', router.Runs);
 
-app.post('/runs', (req, res) => {
-  res.send('Posted run');
-});
+app.use('/user', router.Users);
+
 
 //////////////////////////////////////////////////////////////////////////////
 
