@@ -148,7 +148,7 @@ class App extends React.Component {
   }
 
   startRun(runObj) {
-    runObj.userid = this.state.user.fbId;
+    runObj.userId = this.state.user.id;
     runObj.runnerId = null;
     runObj.id = null;
     runObj.status = 'available';
