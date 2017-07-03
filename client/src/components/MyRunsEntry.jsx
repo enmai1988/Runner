@@ -6,10 +6,10 @@ const MyRunsEntry = (props) => (
       <h4>Run Title</h4><p>{props.run.title}</p>
     </div>
     <div className="myRun">
-      <h4>Starter</h4><p>{props.run.userId}</p>
+      <h4>Starter</h4><p>{props.run.userid}</p>
     </div>
     <div className="myRun">
-      <h4>Runner</h4><p>{props.run.runnerId}</p>
+      <h4>Runner</h4><p>{props.run.runnerid}</p>
     </div>
     <div className="myRun myRunDesc">
       <h4>Description</h4><p>{props.run.description}</p>
@@ -18,13 +18,13 @@ const MyRunsEntry = (props) => (
       <h4>Location</h4><p>{props.run.location}</p>
     </div>
     <div className="myRun">
-      <h4>Time</h4><p>{props.run.startTime}</p>
+      <h4>Time</h4><p>{props.run.starttime}</p>
     </div>
     <div className="myRun">
-      <h4>Expected Finish Time</h4><p>{props.run.expectedFinishTime}</p>
+      <h4>Expected Finish Time</h4><p>{props.run.expectedfinishtime}</p>
     </div>
     <div className="myRun">
-      <h4>Finish Time</h4><p>{props.run.finishTime}</p>
+      <h4>Finish Time</h4><p>{props.run.finishtime}</p>
     </div>
     <div className="myRun">
       <h4>Payout</h4><p>{props.run.amount}</p>
