@@ -23,7 +23,7 @@ class App extends React.Component {
     this.state = {
       user: {
         id: null,
-        fbId: null,
+        fbid: null,
         firstname: null,
         lastname: null,
         displayname: null,
@@ -64,6 +64,7 @@ class App extends React.Component {
     this.getUserInfoFromFB();
     this.openSignUpModal();
     //send updated user info to db
+    this.getUserInfo();
 
     //GET all types of runs
     this.getAvailableRuns();
@@ -205,7 +206,9 @@ class App extends React.Component {
   }
 
   getActiveRuns() {
-    axios.get('/runs/active')
+    var id = this.state.user.id;
+    var url = `/runs/active?id=${id}`;
+    axios.get(url)
       .then(res => {
         console.log('active runs: ', res.data);
         this.setState({
@@ -218,7 +221,9 @@ class App extends React.Component {
   }
 
   getCompletedRuns() {
-    axios.get('/runs/completed')
+    var id = this.state.user.id;
+    var url = `/runs/completed?id=${id}`;
+    axios.get('url')
       .then(res => {
         console.log('User info: ', res.data);
         this.setState({
