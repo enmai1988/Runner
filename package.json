@@ -28,6 +28,7 @@
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "pg": "^6.4.0",
+    "pg-promise": "^6.3.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-modal": "^2.2.1",
