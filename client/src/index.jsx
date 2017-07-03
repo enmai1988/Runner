@@ -153,7 +153,7 @@ class App extends React.Component {
     runObj.id = null;
     runObj.status = 'available';
     runObj.finishTime = null;
-    console.log('run obj' , runObj);
+    console.log('run obj', runObj);
     axios.post('/runs/start', {runObj})
       .then(res => {
         console.log(res);
