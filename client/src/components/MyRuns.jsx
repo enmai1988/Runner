@@ -7,7 +7,7 @@ const MyRuns = (props) => (
     <h4>Active Runs</h4>
     <div>
       <ul className="myRunsContainer">
-        {props.runs.map((run, index) => {
+        {props.activeRuns.map((run, index) => {
           return <MyRunsEntry run={run} key={index} />;
         })}
       </ul>
@@ -16,7 +16,7 @@ const MyRuns = (props) => (
     <h4>Past Runs</h4>
     <div>
       <ul className="myRunsContainer">
-        {props.runs.map((run, index) => {
+        {props.completedRuns.map((run, index) => {
           return <MyRunsEntry run={run} key={index} />;
         })}
       </ul>

@@ -124,6 +124,7 @@ class App extends React.Component {
     this.getAvailableRuns();
     this.getCompletedRuns();
     this.getActiveRuns();
+    console.log('state', this.state);
   }
 
   checkForNullUserValues() {
@@ -324,9 +325,9 @@ class App extends React.Component {
             <hr/>
           </div>
           <div className="mainBodyContainer">
-            <Route exact path="/" component={() => <Home runs={this.state.runs} acceptRun={this.acceptRun} />}/>
+            <Route exact path="/" component={() => <Home availableRuns={this.state.availableRuns} acceptRun={this.acceptRun} />}/>
             <Route path="/startRun" component={() => <StartRun startRun={this.startRun}/>}/>
-            <Route path="/myRuns" component={() => <MyRuns runs={this.state.runs}/>}/>
+            <Route path="/myRuns" component={() => <MyRuns activeRuns={this.state.activeRuns} completedRuns={this.state.completedRuns}/>}/>
             <Route path="/profile" component={() => <Profile user={this.state.user} updateUserData={this.updateUserInfo} />}/>
             <Route path="/logOut" component={() => <LogOut/>}/>
           </div>

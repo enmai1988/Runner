@@ -6,7 +6,7 @@ const Home = (props) => (
     <h2>Home</h2>
     <div>
       <ul className="homeRunsContainer">
-        {props.runs.map((run, index) => {
+        {props.availableRuns.map((run, index) => {
           return <HomeRunEntry run={run} acceptRun={props.acceptRun} key={index} />;
         })}
       </ul>
