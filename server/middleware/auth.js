@@ -17,14 +17,14 @@ function(accessToken, refreshToken, profile, cb) {
   // console.log('PROFILE:');
   // console.log(profile);
   profile = {
-    fbId: profile.id,
-    displayName: profile.displayName,
+    fbid: profile.id,
+    displayname: profile.displayName,
     email: profile.emails.length ? profile.emails[0].value : null,
     gender: profile.gender,
-    firstName: profile.name.givenName,
-    lastName: profile.name.familyName,
-    profilePic: profile.photos.length ? profile.photos[0].value : null,
-    profileUrl: profile.profileUrl
+    firstname: profile.name.givenName,
+    lastname: profile.name.familyName,
+    profilepic: profile.photos.length ? profile.photos[0].value : null,
+    profileurl: profile.profileUrl
   };
 
   return db.Users.get(profile)

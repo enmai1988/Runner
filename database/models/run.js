@@ -23,7 +23,7 @@ class Runs extends Model {
     if (!userId) {
       return db.query(`SELECT amount, location, status, title, description FROM RUNS WHERE status = '${status}'`);
     } else {
-      return db.query(`SELECT amount, location, status, title, description FROM RUNS WHERE status = '${status}' AND userId = '${userId}'`);
+      return db.query(`SELECT amount, location, status, title, description FROM RUNS WHERE status = '${status}' AND id = '${userId}'`);
     }
   }
 
@@ -39,8 +39,8 @@ class Runs extends Model {
     let date = new Date();
     let dateStamp = date.toLocaleString();
     if (runObj.status === 'available') {
-      return db.query(`UPDATE RUNS SET STATUS = 'started', startTime = '${dateStamp}' WHERE id = '${runObj.id}'`);
-    } else if (runObj.status === 'started') {
+      return db.query(`UPDATE RUNS SET STATUS = 'active', startTime = '${dateStamp}' WHERE id = '${runObj.id}'`);
+    } else if (runObj.status === 'active') {
       return db.query(`UPDATE RUNS SET STATUS = 'finished', finishTime = '${dateStamp}' WHERE id = '${runObj.id}'`);
     }
   }
