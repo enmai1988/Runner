@@ -8,7 +8,7 @@ module.exports = {
   mapUser: (req, res, next) => {
     // maps user post request to the body
     if (Object.keys(req.body).length) {
-      req.userinfo = req.body;
+      req.userinfo = req.body.obj;
       next();
     } else {
       res.send('BAD REQUEST');
@@ -17,7 +17,9 @@ module.exports = {
 
   update: (req, res, next) => {
     // should edit missing user info after sign up page
-    req.user = _.extend(req.user, req.userinfo);
+    console.log('USER: ', req.user);
+    console.log('NEW INFO', req.userinfo);
+    _.extend(req.user, req.userinfo);
     db.Users.updateUserInfo(req.user)
     .then(() => {
       next();

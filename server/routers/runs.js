@@ -24,6 +24,8 @@ router.post('/start', util.Runs.updateRun, (req, res) => {
 
   // GET routes
 
+router.get('*', util.Runs.getId);
+
 router.get('/user', util.Runs.getUserRuns);
 
 router.get('/available', util.Runs.getAvailableRuns);
@@ -33,7 +35,7 @@ router.get('/active', util.Runs.getStartedRuns);
 router.get('/completed', util.Runs.getFinishedRuns);
 
 router.get('*', (req, res) => {
-  res.send(res.runs.rows);
+  res.send(res.runs);
 });
 
 

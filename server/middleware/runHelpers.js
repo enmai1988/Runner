@@ -12,9 +12,18 @@ module.exports = {
     }
   },
 
+  getId: (req, res, next) => {
+    if (Object.keys(req.query).length) {
+      // console.log('QUERY: ', req.query);
+      // console.log('USER: ', req.user);
+      req.userId = req.query.id;
+    }
+    // console.log('USER: ', req.userId);
+    next();
+  },
+
   getUserRuns: (req, res, next) => {
-    var userId = req.body;
-    db.Runs.getAllRunsWithUserId(userId)
+    db.Runs.getAllRunsWithUserId(req.userId)
     .then((runs) => {
       res.runs = runs;
       next();
@@ -32,7 +41,7 @@ module.exports = {
 
   getStartedRuns: (req, res, next) => {
     // NEEDS DB FUNCTION THAT GETS STARTED RUNS
-    return db.Runs.getAllRunsWithStatus('started', req.user.fbId)
+    return db.Runs.getAllRunsWithStatus('active', req.userId)
     .then((runs) => {
       res.runs = runs;
       next();
@@ -41,7 +50,7 @@ module.exports = {
 
   getFinishedRuns: (req, res, next) => {
     // gets all runs that have been finished (finished status)
-    return db.Runs.getAllRunsWithStatus('finished', req.user.fbId)
+    return db.Runs.getAllRunsWithStatus('finished', req.userId)
     .then((runs) => {
       res.runs = runs;
       next();
