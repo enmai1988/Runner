@@ -7,19 +7,19 @@ var util = require('../middleware');
 
   // POST routes
 
-router.post(util.Runs.mapRun);
+router.post('*', util.Runs.mapRun);
 
-router.post('/accept', (req, res) => {
-  res.redirect('/runs/update');
+router.post('/accept', util.Runs.updateRun, (req, res) => {
+  res.send('Updated');
 });
 
-router.post('/start', (req, res) => {
-  res.redirect('/runs/update');
+router.post('/start', util.Runs.updateRun, (req, res) => {
+  res.send('Created');
 });
 
-router.post('/update', util.Runs.updateRun, (req, res) => {
-  res.send('Updated successfully');
-});
+// router.post('/update', util.Runs.updateRun, (req, res) => {
+//   res.send('Updated successfully');
+// });
 
 
   // GET routes
