@@ -22,18 +22,18 @@ class App extends React.Component {
 
     this.state = {
       user: {
-        id: 1,
-        fbId: 324234,
-        firstName: 'Kai',
-        lastName: 'Mashima',
-        displayName: 'Kai Mashima',
-        gender: 'male',
-        rating: 5,
+        id: null,
+        fbId: null,
+        firstName: null,
+        lastName: null,
+        displayName: null,
+        gender: null,
+        rating: null,
         profilePic: null,
         profileUrl: null,
-        location: 'San Francisco',
-        phone: '6508155855',
-        email: 'kaiomashima@gmail.com',
+        location: null,
+        phone: null,
+        email: null,
       },
       runs: [ 
         {
@@ -114,8 +114,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    //if new db sign in get data from 
     this.getUserInfoFromFB();
-    //this.checkForNullUserValues();
+    this.openSignUpModal();
+    //send updated user info to db
 
     //GET user info from db
     this.getUserInfo();
@@ -127,17 +129,8 @@ class App extends React.Component {
     console.log('state', this.state);
   }
 
-  checkForNullUserValues() {
-    var user = this.state.user;
-    var nullExist = false;
-    for (var prop in this.state.user) {
-      if (user[prop] === null) {
-        nullExist = true;
-      }
-    }
-    if (nullExist === true) {
-      this.openModal();
-    }
+  openSignUpModal() {
+    this.openModal();
   }
 
   //POST REQUESTS //////////////////////////////////////////////////////////
