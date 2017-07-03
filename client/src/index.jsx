@@ -131,7 +131,7 @@ class App extends React.Component {
     var nullExist = false;
     for (var prop in this.state.user) {
       if (user[prop] === null) {
-        nullExist =true;
+        nullExist = true;
       }
     }
     if (nullExist === true) {
