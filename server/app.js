@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var util = require('./middleware');
 var passport = require('passport');
+var router = require('./routers');
 
 var app = express();
 
@@ -24,59 +25,11 @@ app.use(express.static(path.join(__dirname, '/../client/public/assets')));
 // functions that post and get from database should go here
 
 // routes for runs
-app.route('/runs')
 
-  // POST routes
+app.use('/runs', router.Runs);
 
-  .post(util.Runs.mapRun)
+app.use('/user', router.Users);
 
-  .post('/accept', (req, res) => {
-    res.redirect('/runs/update');
-  })
-
-  .post('/start', (req, res) => {
-    res.redirect('/runs/update');
-  })
-
-  .post('/update', util.Runs.updateRun, (req, res) => {
-    res.send('Updated successfully');
-  })
-
-
-  // GET routes
-
-  .get('/user', util.Runs.getUserRuns)
-
-  .get('/available', util.Runs.getAvailableRuns)
-
-  .get('/active', util.Runs.getStartedRuns)
-
-  .get('/completed', util.Runs.getFinishedRuns)
-
-  .get((req, res) => {
-    res.send(res.runs);
-  });
-
-
-app.route('/user')
-
-  // POST routes
-
-  .post(mapUser)
-
-  .post('/info', (req, res) => {
-    
-  })
-
-  .post('/signup', (req, res) => {
-
-  })
-
-  // GET routes
-
-  .get('/info/fb', (req, res) => {
-    res.send(req.user);
-  });
 
 //////////////////////////////////////////////////////////////////////////////
 
