@@ -27,7 +27,7 @@ function(accessToken, refreshToken, profile, cb) {
     profileUrl: profile.profileUrl
   };
 
-  return db.Users.checkIfUserExists(profile)
+  return db.Users.get(profile)
   .then((res) => {
     console.log('USER in DB');
     console.log(res);
@@ -38,7 +38,7 @@ function(accessToken, refreshToken, profile, cb) {
     }
   })
   .then((res) => {
-    throw db.Users.checkIfUserExists(profile);
+    throw db.Users.get(profile);
   })
   .catch((user) => {
     // currently gets error because the schema
