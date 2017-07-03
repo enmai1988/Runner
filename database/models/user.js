@@ -35,7 +35,7 @@ class Users extends Model {
   addDislike(userObj) {
     return this.get(userObj)
     .then((user) => {
-      let newRating = user.rating - 1 ;
+      let newRating = user.rating - 1;
       newRating = newRating < 0 ? 0 : newRating;
       return db.query(`UPDATE USERS SET RATING = ${newRating} WHERE fbId = '${user.fbId}'`);
     });
