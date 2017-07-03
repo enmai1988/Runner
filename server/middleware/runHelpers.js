@@ -17,6 +17,7 @@ module.exports = {
     if (req.query) {
       req.userId = req.query;
     }
+    console.log('USER: ', req.user);
     next();
   },
 
