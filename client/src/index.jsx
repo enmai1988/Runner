@@ -15,6 +15,7 @@ import StartRun from './components/StartRun.jsx';
 import MyRuns from './components/MyRuns.jsx';
 import Profile from './components/Profile.jsx';
 import LogOut from './components/LogOut.jsx';
+import _ from 'lodash';
 
 class App extends React.Component {
   constructor(props) {
@@ -61,20 +62,31 @@ class App extends React.Component {
 
   componentDidMount() {
     //if new db sign in get data from 
-    this.getUserInfoFromFB();
-    this.openSignUpModal();
-    //send updated user info to db
-    this.getUserInfo();
-
-    //GET all types of runs
-    this.getAvailableRuns();
-    this.getCompletedRuns();
-    this.getActiveRuns();
-    console.log('state', this.state);
+    this.getUserInfoFromFB() 
+      .then(() => {
+        this.checkForNullUserValues();
+        //GET all types of runs
+        this.getAvailableRuns();
+        this.getCompletedRuns();
+        this.getActiveRuns();
+        console.log('state', this.state);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  openSignUpModal() {
-    this.openModal();
+  checkForNullUserValues() {
+    var user = this.state.user;
+    var nullExist = false;
+    for (var prop in this.state.user) {
+      if (user[prop] === null) {
+        nullExist = true;
+      }
+    }
+    if (nullExist === true) {
+      this.openModal();
+    }
   }
 
   //POST REQUESTS //////////////////////////////////////////////////////////
@@ -121,11 +133,13 @@ class App extends React.Component {
     for (var pair of formData.entries()) {
       data[pair[0]] = pair[1];
     }
-    var obj = Object.assign({}, data, this.user);
+    var obj = Object.assign({}, this.state.user);
+    _.extend(obj, data);
     console.log('signup user data', obj);
     axios.post('/user/signup', {obj})
       .then(res => {
         console.log(res);
+        this.getUserInfo();
       })
       .catch(err => {
         console.log(err);
@@ -166,7 +180,7 @@ class App extends React.Component {
   //GET REQUESTS ///////////////////////////////////////////////////////////
   //USERS
   getUserInfoFromFB() {
-    axios.get('/user/info/fb')
+    return axios.get('/user/info/fb')
       .then(res => {
         console.log('User info: ', res.data);
         this.setState({
@@ -225,7 +239,7 @@ class App extends React.Component {
     var url = `/runs/completed?id=${id}`;
     axios.get('url')
       .then(res => {
-        console.log('User info: ', res.data);
+        console.log('completed runs', res.data);
         this.setState({
           completedRuns: res.data
         });
@@ -284,7 +298,7 @@ class App extends React.Component {
               <br></br><br></br>
               <form id="signupNewUserForm" onSubmit={this.signupNewUser}>
                 <label>Phone Number</label>
-                <input type="text" name="phoneNumber" required />
+                <input type="text" name="phone" required />
                 <label>Email</label>
                 <input type="text" name="email" required />
                 <label>Location</label>
