@@ -6,7 +6,7 @@ var util = require('../middleware');
 
   // POST routes
 
-router.post(util.User.mapUser);
+router.post('*', util.User.mapUser);
 
 router.post('/info', util.User.update, (req, res) => {
   res.send('Updated successfully');
