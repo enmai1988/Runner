@@ -23,6 +23,23 @@ module.exports = {
       next();
     });
   },
+
+  like: (req, res, next) => {
+
+    // REQUEST SHOULD BE IN FORM OF { fbId: 'runnerId' }
+    db.Users.addLike(req.userinfo)
+    .then(() => {
+      next();
+    });
+  },
+
+  dislike: (req, res, next) => {
+    db.Users.addDislike(req.userinfo)
+    .then(() => {
+      next();
+    });
+  },
+
   deleteUser: (req, res, next) => {
     // probably don't need this for now
     next();

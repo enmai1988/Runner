@@ -31,7 +31,7 @@ module.exports = {
 
   getStartedRuns: (req, res, next) => {
     // NEEDS DB FUNCTION THAT GETS STARTED RUNS
-    return db.Runs.getAllRunsWithStatus('started')
+    return db.Runs.getAllRunsWithStatus('started', req.user.fbId)
     .then((runs) => {
       res.runs = runs;
       next();
@@ -40,7 +40,7 @@ module.exports = {
 
   getFinishedRuns: (req, res, next) => {
     // gets all runs that have been finished (finished status)
-    return db.Runs.getAllRunsWithStatus('finished')
+    return db.Runs.getAllRunsWithStatus('finished', req.user.fbId)
     .then((runs) => {
       res.runs = runs;
       next();
