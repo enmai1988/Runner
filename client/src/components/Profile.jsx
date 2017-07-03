@@ -29,9 +29,9 @@ class Profile extends React.Component {
       <div className="reactComponentContainer">
         <h2>Profile</h2>
         <h5>Picture: </h5>
-        <img src={this.props.user.profilePic} width="200" height="60"/>
+        <img src={this.props.user.profilepic} width="200" height="60"/>
         <h5>Name: </h5>
-        <p>{this.props.user.displayName}</p>
+        <p>{this.props.user.displayname}</p>
         <h5>Email: </h5>
         <p>{this.props.user.email}</p>
         <input type="text" id="profileEmailInput" placeholder="New Email..."/>
