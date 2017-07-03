@@ -6,14 +6,18 @@ module.exports = {
   mapRun: (req, res, next) => {
     // maps body to run object if it exists
     // console.log('RUN: ', req.body);
-    console.log('QUERY: ', req.query);
-    if (req.query) {
-      req.userId = req.query;
-    }
     if (Object.keys(req.body).length) {
       req.run = req.body;
       next();
     }
+  },
+
+  getId: (req, res, next) => {
+    console.log('QUERY: ', req.query);
+    if (req.query) {
+      req.userId = req.query;
+    }
+    next();
   },
 
   getUserRuns: (req, res, next) => {

@@ -24,6 +24,8 @@ router.post('/start', util.Runs.updateRun, (req, res) => {
 
   // GET routes
 
+router.get('*', util.Runs.getId);
+
 router.get('/user', util.Runs.getUserRuns);
 
 router.get('/available', util.Runs.getAvailableRuns);
