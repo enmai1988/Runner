@@ -8,7 +8,7 @@ console.log('in models/run.js');
 
 class Runs extends Model {
   constructor() {
-    super('runs');
+    super('RUNS');
   }
 
   create(runObj) {
