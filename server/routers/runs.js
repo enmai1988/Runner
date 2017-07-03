@@ -35,7 +35,7 @@ router.get('/active', util.Runs.getStartedRuns);
 router.get('/completed', util.Runs.getFinishedRuns);
 
 router.get('*', (req, res) => {
-  res.send(res.runs.rows);
+  res.send(res.runs);
 });
 
 

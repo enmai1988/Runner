@@ -29,7 +29,7 @@ function(accessToken, refreshToken, profile, cb) {
 
   return db.Users.get(profile)
   .then((res) => {
-    let user = res.rows[0];
+    let user = res[0];
     if (user) {
       throw user;
     } else {
@@ -41,7 +41,7 @@ function(accessToken, refreshToken, profile, cb) {
     return db.Users.get(profile);
   })
   .then((res) => {
-    throw res.rows[0];
+    throw res[0];
   })
   .catch((user) => {
     // currently gets error because the schema
