@@ -102,9 +102,9 @@ class App extends React.Component {
     this.signupNewUser = this.signupNewUser.bind(this);
 
     //get requests
-    this.getStartedRuns = this.getStartedRuns.bind(this);
+    this.getActiveRuns = this.getActiveRuns.bind(this);
     this.getAvailableRuns = this.getAvailableRuns.bind(this);
-    this.getFinishedRuns = this.getFinishedRuns.bind(this);
+    this.getCompletedRuns = this.getCompletedRuns.bind(this);
     this.getUserInfoFromFB = this.getUserInfoFromFB.bind(this);
     this.getUserInfo = this.getUserInfo.bind(this);
 
@@ -115,15 +115,16 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getUserInfoFromFB();
-    this.checkForNullUserValues();
+    //this.checkForNullUserValues();
 
     //GET user info from db
-    //this.getUserInfo();
+    this.getUserInfo();
 
     //GET all types of runs
-    //this.getAvailableRuns();
-    //this.getFinishedRuns();
-    //this.getStartedRuns();
+    this.getAvailableRuns();
+    this.getCompletedRuns();
+    this.getActiveRuns();
+    console.log('state', this.state);
   }
 
   checkForNullUserValues() {
@@ -141,15 +142,37 @@ class App extends React.Component {
 
   //POST REQUESTS //////////////////////////////////////////////////////////
   //fix to send all user data
-  updateUserInfo(data) {
-    console.log('updated user data', data);
-    // axios.post('/user/info', data)
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+  updateUserInfo(userObj) {
+    console.log('updated user data', userObj);
+    axios.post('/user/info', data)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  userLike(userObj) {
+    console.log('user obj', userObj);
+    axios.post('/user/like', userObj)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  userDislike(userObj) {
+    console.log('user obj', userObj);
+    axios.post('/user/dislike', userObj)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   signupNewUser(e) {
@@ -163,44 +186,44 @@ class App extends React.Component {
     }
     var obj = Object.assign({}, data, this.user);
     console.log('signup user data', obj);
-    // axios.post('/user/signup', {obj})
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    axios.post('/user/signup', {obj})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     this.closeModal();
   }
 
-  startRun(data) {
-    data.userid = this.state.user.fbId;
-    data.runnerId = null;
-    data.id = null;
-    data.status = 'available';
-    data.finishTime = null;
-    console.log('the data has arrived', data);
-    // axios.post('/runs/start', {data})
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+  startRun(runObj) {
+    runObj.userid = this.state.user.fbId;
+    runObj.runnerId = null;
+    runObj.id = null;
+    runObj.status = 'available';
+    runObj.finishTime = null;
+    console.log('run obj' , runObj);
+    axios.post('/runs/start', {runObj})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
-  acceptRun(run) {
+  acceptRun(runObj) {
     console.log(run);
     console.log(this.state.user.id);
-    run.runnerId = this.state.user.id;
-    console.log('run data', run);
-    // axios.post('/runs/accept', {run})
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    runObj.runnerId = this.state.user.id;
+    console.log('run obj', runObj);
+    axios.post('/runs/accept', {runObj})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   //GET REQUESTS ///////////////////////////////////////////////////////////
@@ -219,16 +242,16 @@ class App extends React.Component {
   }
 
   getUserInfo() {
-    // axios.get('/user/info')
-    //   .then(res => {
-    //     console.log('User info: ', res.data);
-    //     this.setState({
-    //       user: res.data
-    //     });
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    axios.get('/user/info')
+      .then(res => {
+        console.log('User info: ', res.data);
+        this.setState({
+          user: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   //RUNS
@@ -245,8 +268,8 @@ class App extends React.Component {
       });
   }
 
-  getStartedRuns() {
-    axios.get('/runs/started')
+  getActiveRuns() {
+    axios.get('/runs/active')
       .then(res => {
         console.log('active runs: ', res.data);
         this.setState({
@@ -258,8 +281,8 @@ class App extends React.Component {
       });
   }
 
-  getFinishedRuns() {
-    axios.get('/runs/finished')
+  getCompletedRuns() {
+    axios.get('/runs/completed')
       .then(res => {
         console.log('User info: ', res.data);
         this.setState({
@@ -302,9 +325,9 @@ class App extends React.Component {
             <hr/>
           </div>
           <div className="mainBodyContainer">
-            <Route exact path="/" component={() => <Home runs={this.state.runs} acceptRun={this.acceptRun} />}/>
+            <Route exact path="/" component={() => <Home availableRuns={this.state.availableRuns} acceptRun={this.acceptRun} />}/>
             <Route path="/startRun" component={() => <StartRun startRun={this.startRun}/>}/>
-            <Route path="/myRuns" component={() => <MyRuns runs={this.state.runs}/>}/>
+            <Route path="/myRuns" component={() => <MyRuns activeRuns={this.state.activeRuns} completedRuns={this.state.completedRuns}/>}/>
             <Route path="/profile" component={() => <Profile user={this.state.user} updateUserData={this.updateUserInfo} />}/>
             <Route path="/logOut" component={() => <LogOut/>}/>
           </div>
