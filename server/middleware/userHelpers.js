@@ -17,8 +17,8 @@ module.exports = {
 
   update: (req, res, next) => {
     // should edit missing user info after sign up page
-    console.log('USER: ', req.user);
-    console.log('NEW INFO', req.userinfo);
+    // console.log('USER: ', req.user);
+    // console.log('NEW INFO', req.userinfo);
     _.extend(req.user, req.userinfo);
     db.Users.updateUserInfo(req.user)
     .then(() => {

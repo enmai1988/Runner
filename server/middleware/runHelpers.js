@@ -7,7 +7,8 @@ module.exports = {
     // maps body to run object if it exists
     // console.log('RUN: ', req.body);
     if (Object.keys(req.body).length) {
-      req.run = req.body.runObj;
+      console.log(req.body);
+      req.run = req.body;
       next();
     }
   },

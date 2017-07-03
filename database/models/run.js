@@ -12,7 +12,8 @@ class Runs extends Model {
   }
 
   create(runObj) {
-    return db.query(`INSERT INTO RUNS (userId, payout, location, status, title, description, startTime, expectedFinishTime) values (${runObj.userId}, '${runObj.amount}', '${runObj.location}', '${runObj.status}', '${runObj.title}', '${runObj.description}', '${runObj.startTime}, '${runObj.expectedFinishTime}')`);
+    console.log('RUN OBJ', runObj);
+    return db.query(`INSERT INTO RUNS (userId, amount, location, status, title, description, startTime, expectedFinishTime) values (${runObj.userId}, '${runObj.payout}', '${runObj.location}', '${runObj.status}', '${runObj.title}', '${runObj.description}', '${runObj.startTime}', '${runObj.expectedFinishTime}');`);
   }
 
   getAllRunsWithUserId(userId) {
@@ -39,9 +40,9 @@ class Runs extends Model {
     let date = new Date();
     let dateStamp = date.toLocaleString();
     if (runObj.status === 'available') {
-      return db.query(`UPDATE RUNS SET STATUS = 'active', startTime = '${dateStamp}' WHERE id = '${runObj.id}'`);
+      return db.query(`UPDATE RUNS SET status = 'active', startTime = '${dateStamp}' WHERE id = '${runObj.id}'`);
     } else if (runObj.status === 'active') {
-      return db.query(`UPDATE RUNS SET STATUS = 'finished', finishTime = '${dateStamp}' WHERE id = '${runObj.id}'`);
+      return db.query(`UPDATE RUNS SET status = 'finished', finishTime = '${dateStamp}' WHERE id = '${runObj.id}'`);
     }
   }
 
