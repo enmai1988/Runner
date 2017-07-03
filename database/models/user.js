@@ -4,14 +4,14 @@ const Promise = require('bluebird');
 const db = require('../index.js');
 var http = require('http');
 
-console.log('in models/user.js')
+console.log('in models/user.js');
 
 class Users extends Model {
   constructor() {
     super('users');
   }
 
-  checkIfUserExists(userObj) {
+  get(userObj) {
     return db.query(`SELECT * FROM users WHERE fbId = '${userObj.fbId}'`);
   }
 
@@ -21,17 +21,24 @@ class Users extends Model {
 
   getPropFromUser(userObj, prop) {
     //get id, rating, etc. from user info
-    return db.query(`SELECT ${prop} FROM USERS WHERE fbId = '${userObj.fbId}'`)
+    return db.query(`SELECT ${prop} FROM USERS WHERE fbId = '${userObj.fbId}'`);
   }
 
-  addLike(userObj, rating) {
-    let newRating = rating += 1;
-    return db.query(`UPDATE USERS SET RATING = ${newRating} WHERE fbId = '${userObj.fbId}'`)
+  addLike(userObj) {
+    return this.get(userObj)
+    .then((user) => {
+      let newRating = user.rating + 1;
+      return db.query(`UPDATE USERS SET RATING = ${newRating} WHERE fbId = '${user.fbId}'`);
+    });
   }
 
-  addDislike(userObj, rating) {
-    let newRating = rating -= 1;
-    return db.query(`UPDATE USERS SET RATING = ${newRating} WHERE fbId = '${userObj.fbId}'`)
+  addDislike(userObj) {
+    return this.get(userObj)
+    .then((user) => {
+      let newRating = user.rating - 1;
+      newRating = newRating < 0 ? 0 : newRating;
+      return db.query(`UPDATE USERS SET RATING = ${newRating} WHERE fbId = '${user.fbId}'`);
+    });
   }
 
   updateUserInfo(userObj) {

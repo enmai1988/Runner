@@ -19,8 +19,12 @@ class Runs extends Model {
     return db.query(`SELECT amount, location, status, title, description FROM RUNS WHERE userId = '${userId}'`);
   }
 
-  getAllRunsWithStatus(status) {
-    return db.query(`SELECT amount, location, status, title, description FROM RUNS WHERE status = '${status}'`);
+  getAllRunsWithStatus(status, userId) {
+    if (!userId) {
+      return db.query(`SELECT amount, location, status, title, description FROM RUNS WHERE status = '${status}'`);
+    } else {
+      return db.query(`SELECT amount, location, status, title, description FROM RUNS WHERE status = '${status}' AND userId = '${userId}'`);
+    }
   }
 
   deleteRun(runObj) {

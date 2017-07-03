@@ -16,6 +16,13 @@ router.post('/signup', util.User.update, (req, res) => {
   res.send('Updates successfully');
 });
 
+router.post('/like', util.User.like, (req, res) => {
+  res.send('Liked!');
+});
+
+router.post('/dislike', util.User.dislike, (req, res) => {
+  res.send('Disliked!');
+});
   // GET routes
 
 router.get('/info/fb', (req, res) => {

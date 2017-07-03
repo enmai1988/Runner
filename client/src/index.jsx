@@ -206,16 +206,16 @@ class App extends React.Component {
   //GET REQUESTS ///////////////////////////////////////////////////////////
   //USERS
   getUserInfoFromFB() {
-    // axios.get('/user/info/fb')
-    //   .then(res => {
-    //     console.log('User info: ', res.data);
-    //     this.setState({
-    //       user: res.data
-    //     });
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    axios.get('/user/info/fb')
+      .then(res => {
+        console.log('User info: ', res.data);
+        this.setState({
+          user: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   getUserInfo() {
