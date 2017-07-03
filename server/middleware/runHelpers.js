@@ -13,11 +13,12 @@ module.exports = {
   },
 
   getId: (req, res, next) => {
-    console.log('QUERY: ', req.query);
-    if (req.query) {
-      req.userId = req.query;
+    if (Object.keys(req.query).length) {
+      // console.log('QUERY: ', req.query);
+      // console.log('USER: ', req.user);
+      req.userId = req.query.id;
     }
-    console.log('USER: ', req.user);
+    // console.log('USER: ', req.userId);
     next();
   },
 

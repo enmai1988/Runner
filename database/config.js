@@ -9,16 +9,16 @@ module.exports = (db) => {
 
   // Create users table
   return db.query(`
-    CREATE TABLE IF NOT EXISTS users (
+    CREATE TABLE IF NOT EXISTS USERS (
       id SERIAL NOT NULL PRIMARY KEY,
-      fbId VARCHAR(255),
-      firstName VARCHAR(255),
-      lastName VARCHAR(255),
-      displayName VARCHAR(255),
+      fbid VARCHAR(255),
+      firstname VARCHAR(255),
+      lastname VARCHAR(255),
+      displayname VARCHAR(255),
       gender VARCHAR(255),
       rating INTEGER NOT NULL DEFAULT 0,
-      profilePic VARCHAR(255),
-      profileUrl VARCHAR(255),
+      profilepic VARCHAR(255),
+      profileurl VARCHAR(255),
       location VARCHAR(255),
       phone VARCHAR(255),
       email VARCHAR(255)

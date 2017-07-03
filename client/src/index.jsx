@@ -9,13 +9,13 @@ import {
 import axios from 'axios';
 import browserHistory from 'react-router';
 import $ from 'jquery';
+import _ from 'lodash';
 //import components
 import Home from './components/Home.jsx';
 import StartRun from './components/StartRun.jsx';
 import MyRuns from './components/MyRuns.jsx';
 import Profile from './components/Profile.jsx';
 import LogOut from './components/LogOut.jsx';
-import _ from 'lodash';
 
 class App extends React.Component {
   constructor(props) {
@@ -182,7 +182,7 @@ class App extends React.Component {
   getUserInfoFromFB() {
     return axios.get('/user/info/fb')
       .then(res => {
-        console.log('User info: ', res.data);
+        console.log('User info FB: ', res.data);
         this.setState({
           user: res.data
         });
@@ -193,7 +193,7 @@ class App extends React.Component {
   }
 
   getUserInfo() {
-    axios.get('/user/info')
+    return axios.get('/user/info')
       .then(res => {
         console.log('User info: ', res.data);
         this.setState({
@@ -237,7 +237,7 @@ class App extends React.Component {
   getCompletedRuns() {
     var id = this.state.user.id;
     var url = `/runs/completed?id=${id}`;
-    axios.get('url')
+    axios.get(url)
       .then(res => {
         console.log('completed runs', res.data);
         this.setState({
