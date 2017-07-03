@@ -1,19 +1,65 @@
 var pg = require('pg');
+const pgp = require('pg-promise')();
 var http = require('http');
 const Promise = require('bluebird');
 const createTables = require('./config');
 
-var pool = new pg.Pool()
+connection = {
+    host: 'localhost',
+    port: 5432,
+    database: 'runner',
+    user: 'runner',
+    password: 'runner'
+}
 
-let db = Promise.promisifyAll(pool);
+const db = pgp(process.env.DATABASE_URL || connection);
 
 db.connect()
-  .then(client => {
-    createTables(client)
-      .then(() => client.release())
+  .then(() => {
+    createTables(db);
   })
   .then(() => console.log('all done'))
 
 console.log('in db/index.js')
 
 module.exports = db;
+
+// process.env.DATABASE_URL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// var pool = new pg.Pool()
+
+// let db = Promise.promisifyAll(pool);
+
+// db.connect()
+//   .then(client => {
+//     createTables(client)
+//       .then(() => client.release())
+//   })
+//   .then(() => console.log('all done'))
+
+// console.log('in db/index.js')
+
+// module.exports = db;
