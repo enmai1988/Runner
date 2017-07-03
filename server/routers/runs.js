@@ -9,11 +9,12 @@ var util = require('../middleware');
 
 router.post('*', util.Runs.mapRun);
 
-router.post('/accept', util.Runs.updateRun, (req, res) => {
+router.post('/accept', util.Runs.updateRun, (req, res, next) => {
   res.send('Updated');
 });
 
-router.post('/start', util.Runs.updateRun, (req, res) => {
+router.post('/start', util.Runs.updateRun, (req, res, next) => {
+  // res.redirect('/');
   res.send('Created');
 });
 

@@ -35,6 +35,7 @@ module.exports = {
     // gets all available runs (no runner id)
     return db.Runs.getAllRunsWithStatus('available')
     .then((runs) => {
+      console.log('ACQUIRED RUNS: ', runs);
       res.runs = runs;
       next();
     });
@@ -78,7 +79,7 @@ module.exports = {
     return Promise.resolve(req.run.id)
     .then((exists) => {
       if (!exists) {
-        console.log('RUN: ', req.run);
+        // console.log('RUN: ', req.run);
         return db.Runs.create(req.run);
       } else {
         throw req.run;

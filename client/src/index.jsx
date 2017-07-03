@@ -164,7 +164,6 @@ class App extends React.Component {
   }
 
   acceptRun(runObj) {
-    console.log(run);
     console.log(this.state.user.id);
     runObj.runnerId = this.state.user.id;
     console.log('run obj', runObj);

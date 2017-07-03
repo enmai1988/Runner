@@ -12,7 +12,6 @@ class Runs extends Model {
   }
 
   create(runObj) {
-    console.log('RUN OBJ', runObj);
     return db.query(`INSERT INTO RUNS (userId, amount, location, status, title, description, startTime, expectedFinishTime) values (${runObj.userId}, '${runObj.payout}', '${runObj.location}', '${runObj.status}', '${runObj.title}', '${runObj.description}', '${runObj.startTime}', '${runObj.expectedFinishTime}');`);
   }
 
@@ -22,9 +21,9 @@ class Runs extends Model {
 
   getAllRunsWithStatus(status, userId) {
     if (!userId) {
-      return db.query(`SELECT amount, location, status, title, description FROM RUNS WHERE status = '${status}'`);
+      return db.query(`SELECT * FROM RUNS WHERE status = '${status}'`);
     } else {
-      return db.query(`SELECT amount, location, status, title, description FROM RUNS WHERE status = '${status}' AND id = '${userId}'`);
+      return db.query(`SELECT * FROM RUNS WHERE status = '${status}' AND userId = '${userId}'`);
     }
   }
 
