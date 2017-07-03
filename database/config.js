@@ -1,6 +1,6 @@
 const Promise = require('bluebird');
 
-console.log('in db/config.js')
+console.log('in db/config.js');
 
 module.exports = (db) => {
   if (!db.query) {
@@ -26,12 +26,12 @@ module.exports = (db) => {
     .then(() => {
       db.query("INSERT INTO USERS (fbId, firstName, lastName, displayName, gender, profilePic, profileUrl, location, phone, email) values ('shindelus', 'jeff', 'shindelus', 'shindelus', 'male', 'null', 'null', 'San Francisco', '555-555-5555', 'jeff@gmail.com'), ('pb', 'pablo', 'bosermam', 'pb', 'male', 'null', 'null', 'San Francisco', '655-555-5555', 'pablo@gmail.com'), ('km', 'kai', 'mashima', 'km', 'male', 'null', 'null', 'San Francisco', '755-555-5555', 'pablo@gmail.com'), ('eh', 'enrique', 'hernandez', 'eh', 'male', 'null', 'null', 'San Francisco', '855-555-5555', 'enrique@gmail.com')");
     })
-    .then(() => {
-      return db.query("SELECT * from users");
-    })
-    .then(result => {
-      console.log(result.rows[0]);
-    })
+    // .then(() => {
+    //   return db.query("SELECT * from users");
+    // })
+    // .then(result => {
+    //   console.log(result.rows[0]);
+    // })
     .then(() => {
       // Create runs table
       return db.query(`
@@ -52,14 +52,14 @@ module.exports = (db) => {
     .then(() => {
       db.query("INSERT INTO RUNS (userId, amount, location, status, title, description) values (1, '$20', 'San Francisco', 'started', 'walk my dog', 'I would like you to walk my dog for 30 mins within the next 2 hours.  Key is under my mat'), (3, '$30', 'San Francisco', 'available', 'get groceries', 'I would like you to get my groceries at safeway within the next 3 hours.  I will send you the address and list.'), (4, '$7', 'San Francisco', 'available', 'get me coffee', 'I would like you to get me 3 coffees in the next 30 mins.  I will give you the list and the address.'), (2, '$60', 'San Francisco', 'finished', 'mow my lawn', 'I would like you to mow my lawn tomorrow.  it is one acre and I need it done by 2pm.')");
     })
-    .then(() => {
-      return db.query("SELECT * from runs");
-    })
-    .then(result => {
-      console.log(result.rows[0]);
-    })
+    // .then(() => {
+    //   return db.query("SELECT * from runs");
+    // })
+    // .then(result => {
+    //   console.log(result.rows[0]);
+    // })
     .catch(err => {
-      console.log(err);
+      console.log('ERROR: ', err);
     });
 };
 

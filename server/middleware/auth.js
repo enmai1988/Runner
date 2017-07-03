@@ -29,24 +29,31 @@ function(accessToken, refreshToken, profile, cb) {
 
   return db.Users.get(profile)
   .then((res) => {
-    console.log('USER in DB');
-    console.log(res);
-    if (res.length) {
-      throw res[0];
+    let user = res.rows[0];
+    if (user) {
+      throw user;
     } else {
       return db.Users.create(profile);
     }
   })
   .then((res) => {
-    throw db.Users.get(profile);
+    console.log('CREATING user');
+    return db.Users.get(profile);
+  })
+  .then((res) => {
+    throw res.rows[0];
   })
   .catch((user) => {
     // currently gets error because the schema
     // does not have the same properties as profile
-    if (user.fbId) {
+
+    if (user) {
+      Object.keys(user).forEach(key => {
+        user[key] = user[key] === 'undefined' ? null : user[key];
+      });
       return cb(null, user);
     } else {
-      console.log('ERROR occured checking if user exists');
+      console.log('ERROR occured checking if user exists/creating user');
       return cb(null, profile);
     }
   });
